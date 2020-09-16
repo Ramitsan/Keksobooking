@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Ирина Рамицан](https://up.htmlacademy.ru/javascript/21/user/877447).
-* Наставник: `Неизвестно`.
+* Наставник: [Сергей Буртылёв](https://htmlacademy.ru/profile/id3341).
 
 ---
 
