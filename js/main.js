@@ -1,5 +1,5 @@
 'use strict';
-//КОНСТАНТЫ
+// КОНСТАНТЫ
 const OFFER_TITLE = ['Шикарное предложение!', 'Уютное гнездышко', 'Роскошные апартаменты', 'Дешево и сердито'];
 const OFFER_ADDRESS = ['600, 350', '450, 150', '200, 53', '320, 65', '130, 520', '380, 85', '120, 35', '250, 370'];
 const OFFER_TYPE = ['palace', 'flat', 'house', 'bungalow'];
@@ -10,63 +10,63 @@ const OFFER_DESCRIPTION = ['Великолепная квартира-студи
 const ANNOUNCEMENT_AMOUNT = 8;
 const PHOTOS_AMOUNT = 3;
 
-//переменные
+// переменные
 const map = document.querySelector('.map');
 
 // генерация случайного числа в заданном интервале, включительно
 function getRandomIndex(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
-};
+}
 
-//генерируем номер аватара автора
+// генерируем номер аватара автора
 function getNumberAvatar() {
   let numberAvatar = 'img/avatars/user0' + getRandomIndex(1, ANNOUNCEMENT_AMOUNT) + '.png';
   return numberAvatar;
 }
 
-//генерируем заголовок предложения
+// генерируем заголовок предложения
 function getOfferTitle(arr) {
   let offerTitle = getRandomIndex(0, arr.length);
   return arr[offerTitle];
 }
 
-//генерируем адрес оффера
+// генерируем адрес оффера
 function getOfferAddress(arr) {
   let offerAddress = getRandomIndex(0, arr.length);
   return arr[offerAddress];
 }
 
-//генерируем тип жилья
+// генерируем тип жилья
 function getOfferType(arr) {
   let offerType = getRandomIndex(0, arr.length);
   return arr[offerType];
-};
+}
 
-//генерируем checkin
+// генерируем checkin
 function getOfferCheckin(arr) {
   let offerCheckin = getRandomIndex(0, arr.length);
   return arr[offerCheckin];
 }
 
-//генерируем checkout
+// генерируем checkout
 function getOfferCheckout(arr) {
   let offerCheckout = getRandomIndex(0, arr.length);
   return arr[offerCheckout];
 }
 
-//генерируем features
+// генерируем features
 function getOfferFeatures(arr) {
   let offerFeature = getRandomIndex(0, arr.length);
   return arr[offerFeature];
 }
 
-//генерируем описание оффера
+// генерируем описание оффера
 function getOfferDescription(arr) {
   let offerDescription = getRandomIndex(0, arr.length);
   return arr[offerDescription];
 }
 
-//функция генерации одного оффера
+// функция генерации одного оффера
 function createOffer(_title, _address, _price, _type, _rooms, _guests, _checkin, _checkout, _features, _description, _photos) {
   let offer = {
     title: _title,
@@ -84,7 +84,7 @@ function createOffer(_title, _address, _price, _type, _rooms, _guests, _checkin,
   return offer;
 }
 
-//функция генерации массива оферов
+// функция генерации массива оферов
 function createOffers(length) {
   let offers = [];
   for (let i = 0; i <= length; i++) {
@@ -111,7 +111,7 @@ let arrOffers = createOffers(ANNOUNCEMENT_AMOUNT);
 function getRandomOffer(arr) {
   let randomOffer = getRandomIndex(0, arr.length);
   return arr[randomOffer];
-};
+}
 
 // функция создания одного обяъвления с офером
 function createAnnouncementObject(_author, _offer) {
@@ -120,7 +120,7 @@ function createAnnouncementObject(_author, _offer) {
     offer: _offer
   };
   return announcementObject;
-};
+}
 
 // функция создания массива объектов с объявлениями
 function createAnnouncementObjects(length) {
@@ -131,11 +131,11 @@ function createAnnouncementObjects(length) {
 
     announcements[i] = createAnnouncementObject(authorAvatar, offer);
   }
-  // return announcements;
-  console.log(announcements);
-};
+  return announcements;
+  // console.log(announcements);
+}
 
-//получаем массив объектов с объявлениями
+// получаем массив объектов с объявлениями
 createAnnouncementObjects(ANNOUNCEMENT_AMOUNT);
 
 
