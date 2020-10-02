@@ -14,10 +14,16 @@ const MAX_PRICE = 1000;
 const MAX_QUANTITY_ROOMS = 5;
 const MAX_QUANTITY_GUESTS = 10;
 const ANNOUNCEMENT_AMOUNT = 8;
+const PIN_WIDTH = 40;
+const PIN_HEIGHT = 44;
+const POINTER_PIN_HEIGHT = 5;
 const PHOTOS_AMOUNT = 3;
 
 // переменные
 const map = document.querySelector('.map');
+const templatePin = document.querySelector('#pin').content;
+const templateMapPin = templatePin.querySelector('.map__pin');
+const mapPins = document.querySelector('.map__pins');
 
 // генерация случайного числа в заданном интервале, включительно
 function getRandomInteger(min, max) {
@@ -90,7 +96,31 @@ function createAnnouncements(length) {
   return announcements;
 }
 
-// получаем массив объектов с объявлениями
-createAnnouncements(ANNOUNCEMENT_AMOUNT);
-
 map.classList.remove('map--faded');
+
+// Рендер DOM-элемента на основе объекта
+function renderPin(pinItem) {
+  let clonedElement = templateMapPin.cloneNode(true);
+  let clonedElementImg = clonedElement.querySelector('img');
+
+  clonedElement.style.top = pinItem.location.y - PIN_HEIGHT - POINTER_PIN_HEIGHT + 'px';
+  clonedElement.style.left = pinItem.location.x - PIN_WIDTH / 2 + 'px';
+
+  clonedElementImg.src = pinItem.author.avatar;
+  clonedElementImg.alt = pinItem.offer.title;
+  return clonedElement;
+}
+
+// Заполнение DOM-элемента на основе массива
+function renderPins(arr) {
+  let fragment = document.createDocumentFragment();
+  for (let j = 0; j < arr.length; j++) {
+    fragment.appendChild(renderPin(arr[j]));
+  }
+  return fragment;
+}
+
+// получаем массив объектов с объявлениями
+let announcementElements = createAnnouncements(ANNOUNCEMENT_AMOUNT);
+// Отрисовка сгенерированных DOM-элементов
+mapPins.appendChild(renderPins(announcementElements));
