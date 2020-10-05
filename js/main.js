@@ -30,6 +30,21 @@ function getRandomInteger(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    let swap = arr[j];
+    arr[j] = arr[i];
+    arr[i] = swap;
+  }
+  return arr;
+}
+
+function getRandomArray(arr) {
+  const newArray = arr.slice();
+  return shuffle(newArray).splice(0, getRandomInteger(0, newArray.length));
+}
+
 // генерируем номер аватара автора
 function getNumberAvatar() {
   let numberAvatar = 'img/avatars/user0' + getRandomInteger(1, ANNOUNCEMENT_AMOUNT) + '.png';
@@ -48,11 +63,11 @@ function getOfferType(arr) {
   return arr[offerType];
 }
 
-// генерируем features
-function getOfferFeatures(arr) {
-  let offerFeature = getRandomInteger(0, arr.length);
-  return arr[offerFeature];
-}
+// // генерируем features
+// function getOfferFeatures(arr) {
+//   let offerFeature = getRandomInteger(0, arr.length);
+//   return arr[offerFeature];
+// }
 
 // генерируем описание оффера
 function getOfferDescription(arr) {
@@ -79,7 +94,7 @@ function createAnnouncement() {
       guests: getRandomInteger(1, MAX_QUANTITY_GUESTS),
       checkin: getRandomInteger(MIN_HOUR, MAX_HOUR) + ':' + '00',
       checkout: getRandomInteger(MIN_HOUR, MAX_HOUR) + ':' + '00',
-      features: getOfferFeatures(OFFER_FEATURES),
+      features: getRandomArray(OFFER_FEATURES),
       description: getOfferDescription(OFFER_DESCRIPTION),
       photos: ['http://o0.github.io/assets/images/tokyo/hotel' + getRandomInteger(1, PHOTOS_AMOUNT) + '.jpg']
     },
@@ -142,20 +157,53 @@ const typesOfHousing = {
 
 function createCard() {
   const popup = mapCard.cloneNode(true);
-  let announcement = createAnnouncement();
+  const announcement = createAnnouncement();
 
   popup.querySelector('.popup__title').textContent = announcement.offer.title;
   popup.querySelector('.popup__text--address').textContent = announcement.offer.address;
   popup.querySelector('.popup__text--price').textContent = `${announcement.offer.price}₽/ночь`;
   popup.querySelector('.popup__type').textContent = typesOfHousing[announcement.offer.type];
-  popup.querySelector('.popup__type').textContent = announcement.offer.type;
   popup.querySelector('.popup__text--capacity').textContent = `${announcement.offer.rooms} комнаты для ${announcement.offer.guests} гостей`;
   popup.querySelector('.popup__text--time').textContent = `Заезд после ${announcement.offer.checkin}, выезд до ${announcement.offer.checkout}`;
-  popup.querySelector('.popup__features').textContent = announcement.offer.features;
   popup.querySelector('.popup__description').textContent = announcement.offer.description;
   popup.querySelector('.popup__avatar').src = announcement.author.avatar;
-  popup.querySelector('.popup__photo').src = announcement.offer.photos;
 
+  //  Добавляем блок с удобствами
+  if (announcement.offer.features.length === 0) {
+    popup.querySelector(`.popup__features`).style.display = "none";
+  } else {
+    const featuresList = popup.querySelector('.popup__features');
+    const featuresItem = featuresList.querySelector('.popup__feature');
+    const features = announcement.offer.features;
+    featuresList.innerHTML = '';
+    const fragmentFeatures = document.createDocumentFragment();
+
+    features.forEach(function (value) {
+      const copyFeaturesItem = featuresItem.cloneNode(true);
+      copyFeaturesItem.classList.add(`popup__feature--${value}`);
+      fragmentFeatures.appendChild(copyFeaturesItem);
+    });
+    featuresList.appendChild(fragmentFeatures);
+  }
+
+  //  Добавляем блок с фотографиями
+  if (announcement.offer.photos.length === 0) {
+    popup.querySelector(`.popup__photos`).style.display = "none";
+  } else {
+    const photosList = popup.querySelector('.popup__photos');
+    const photosItem = photosList.querySelector('.popup__photo');
+    const photos = announcement.offer.photos;
+    photosList.innerHTML = '';
+    const fragmentPhotos = document.createDocumentFragment();
+
+    photos.forEach(function (item) {
+      const copyPhotosItem = photosItem.cloneNode(true);
+      copyPhotosItem.src = item;
+      fragmentPhotos.appendChild(copyPhotosItem);
+    });
+
+    photosList.appendChild(fragmentPhotos);
+  }
   return popup;
 }
 
