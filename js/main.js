@@ -65,10 +65,10 @@ function createAnnouncement() {
   const location = {
     x: getRandomInteger(0, MAX_WIDHT_POINT),
     y: getRandomInteger(MIN_HEIGHT_POINT, MAX_HEIGHT_POINT)
-  }
+  };
   const announcement = {
     author: {
-      avatar: 'img/avatars/user0' + getRandomInteger(1, ANNOUNCEMENT_AMOUNT) + '.png'
+      avatar: getNumberAvatar()
     },
     offer: {
       title: getOfferTitle(OFFER_TITLE),
@@ -84,7 +84,7 @@ function createAnnouncement() {
       photos: ['http://o0.github.io/assets/images/tokyo/hotel' + getRandomInteger(1, PHOTOS_AMOUNT) + '.jpg']
     },
     location: location
-  }
+  };
   return announcement;
 }
 
@@ -138,7 +138,7 @@ const typesOfHousing = {
   bungalow: 'Бунгало',
   house: 'Дом',
   palace: 'Дворец'
-}
+};
 
 function createCard() {
   const popup = mapCard.cloneNode(true);
@@ -151,7 +151,7 @@ function createCard() {
   popup.querySelector('.popup__type').textContent = announcement.offer.type;
   popup.querySelector('.popup__text--capacity').textContent = `${announcement.offer.rooms} комнаты для ${announcement.offer.guests} гостей`;
   popup.querySelector('.popup__text--time').textContent = `Заезд после ${announcement.offer.checkin}, выезд до ${announcement.offer.checkout}`;
-  popup.querySelector('.popup__features').textContent = announcement.offer.features; //только одно?
+  popup.querySelector('.popup__features').textContent = announcement.offer.features;
   popup.querySelector('.popup__description').textContent = announcement.offer.description;
   popup.querySelector('.popup__avatar').src = announcement.author.avatar;
   popup.querySelector('.popup__photo').src = announcement.offer.photos;
