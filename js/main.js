@@ -162,14 +162,14 @@ function createCard(announcement) {
   popup.querySelector('.popup__description').textContent = announcement.offer.description;
   popup.querySelector('.popup__avatar').src = announcement.author.avatar;
 
-  showFeatures(announcement);
-  showPhotos(announcement);
+  createFeaturesBlock(announcement);
+  createPhotosBlock(announcement);
 
   return popup;
 }
 
 // Добавляем блок с удобствами
-function showFeatures(announcement) {
+function createFeaturesBlock(announcement) {
   if (announcement.offer.features.length === 0) {
     popup.querySelector(`.popup__features`).style.display = "none";
   } else {
@@ -188,7 +188,7 @@ function showFeatures(announcement) {
 }
 
 //  Добавляем блок с фотографиями
-function showPhotos(announcement) {
+function createPhotosBlock(announcement) {
   if (announcement.offer.photos.length === 0) {
     popup.querySelector(`.popup__photos`).style.display = "none";
   } else {
