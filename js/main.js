@@ -4,6 +4,7 @@ const OFFER_TITLE = ['Шикарное предложение!', 'Уютное �
 const OFFER_TYPE = ['palace', 'flat', 'house', 'bungalow'];
 const OFFER_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 const OFFER_DESCRIPTION = ['Великолепная квартира-студия в центре Токио', 'Подходит как туристам, так и бизнесменам', 'Квартира полностью укомплектована и недавно отремонтирована'];
+const OFFER_PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 const MIN_HOUR = 12;
 const MAX_HOUR = 14;
 const MAX_WIDHT_POINT = 1200;
@@ -17,7 +18,6 @@ const ANNOUNCEMENT_AMOUNT = 8;
 const PIN_WIDTH = 40;
 const PIN_HEIGHT = 44;
 const POINTER_PIN_HEIGHT = 5;
-const PHOTOS_AMOUNT = 3;
 
 // переменные
 const map = document.querySelector('.map');
@@ -42,12 +42,12 @@ function shuffle(arr) {
 
 function getRandomArray(arr) {
   const newArray = arr.slice();
-  return shuffle(newArray).splice(0, getRandomInteger(0, newArray.length));
+  return shuffle(newArray).splice(0, getRandomInteger(0, newArray.length + 1));
 }
 
 // генерируем номер аватара автора
-function getNumberAvatar() {
-  let numberAvatar = 'img/avatars/user0' + getRandomInteger(1, ANNOUNCEMENT_AMOUNT) + '.png';
+function getNumberAvatar(index) {
+  let numberAvatar = 'img/avatars/user0' + index + '.png';
   return numberAvatar;
 }
 
@@ -63,12 +63,6 @@ function getOfferType(arr) {
   return arr[offerType];
 }
 
-// // генерируем features
-// function getOfferFeatures(arr) {
-//   let offerFeature = getRandomInteger(0, arr.length);
-//   return arr[offerFeature];
-// }
-
 // генерируем описание оффера
 function getOfferDescription(arr) {
   let offerDescription = getRandomInteger(0, arr.length);
@@ -76,14 +70,14 @@ function getOfferDescription(arr) {
 }
 
 // функция создания всего объявления
-function createAnnouncement() {
+function createAnnouncement(index) {
   const location = {
     x: getRandomInteger(0, MAX_WIDHT_POINT),
     y: getRandomInteger(MIN_HEIGHT_POINT, MAX_HEIGHT_POINT)
   };
   const announcement = {
     author: {
-      avatar: getNumberAvatar()
+      avatar: getNumberAvatar(index + 1)
     },
     offer: {
       title: getOfferTitle(OFFER_TITLE),
@@ -96,7 +90,7 @@ function createAnnouncement() {
       checkout: getRandomInteger(MIN_HOUR, MAX_HOUR) + ':' + '00',
       features: getRandomArray(OFFER_FEATURES),
       description: getOfferDescription(OFFER_DESCRIPTION),
-      photos: ['http://o0.github.io/assets/images/tokyo/hotel' + getRandomInteger(1, PHOTOS_AMOUNT) + '.jpg']
+      photos: getRandomArray(OFFER_PHOTOS)
     },
     location: location
   };
@@ -137,12 +131,13 @@ function renderPins(аnnouncements) {
 }
 
 // Отрисовка сгенерированных DOM-элементов
-function addPins() {
-  let announcementElements = createAnnouncements(ANNOUNCEMENT_AMOUNT);
-  mapPins.appendChild(renderPins(announcementElements));
+let announcementElements = createAnnouncements(ANNOUNCEMENT_AMOUNT);
+
+function addPins(announcements) {
+  mapPins.appendChild(renderPins(announcements));
 }
 
-addPins();
+addPins(announcementElements);
 
 // дополнительное задание
 const card = document.querySelector('#card').content;
@@ -155,10 +150,9 @@ const typesOfHousing = {
   palace: 'Дворец'
 };
 
-function createCard() {
-  const popup = mapCard.cloneNode(true);
-  const announcement = createAnnouncement();
+const popup = mapCard.cloneNode(true);
 
+function createCard(announcement) {
   popup.querySelector('.popup__title').textContent = announcement.offer.title;
   popup.querySelector('.popup__text--address').textContent = announcement.offer.address;
   popup.querySelector('.popup__text--price').textContent = `${announcement.offer.price}₽/ночь`;
@@ -168,47 +162,54 @@ function createCard() {
   popup.querySelector('.popup__description').textContent = announcement.offer.description;
   popup.querySelector('.popup__avatar').src = announcement.author.avatar;
 
-  //  Добавляем блок с удобствами
+  showFeatures(announcement);
+  showPhotos(announcement);
+
+  return popup;
+}
+
+// Добавляем блок с удобствами
+function showFeatures(announcement) {
   if (announcement.offer.features.length === 0) {
     popup.querySelector(`.popup__features`).style.display = "none";
   } else {
     const featuresList = popup.querySelector('.popup__features');
-    const featuresItem = featuresList.querySelector('.popup__feature');
     const features = announcement.offer.features;
     featuresList.innerHTML = '';
-    const fragmentFeatures = document.createDocumentFragment();
 
     features.forEach(function (value) {
-      const copyFeaturesItem = featuresItem.cloneNode(true);
-      copyFeaturesItem.classList.add(`popup__feature--${value}`);
-      fragmentFeatures.appendChild(copyFeaturesItem);
-    });
-    featuresList.appendChild(fragmentFeatures);
-  }
+      const copyFeaturesItem = document.createElement('li');
 
-  //  Добавляем блок с фотографиями
+      copyFeaturesItem.classList.add(`popup__feature`);
+      copyFeaturesItem.classList.add(`popup__feature--${value}`);
+      featuresList.append(copyFeaturesItem);
+    });
+  }
+}
+
+//  Добавляем блок с фотографиями
+function showPhotos(announcement) {
   if (announcement.offer.photos.length === 0) {
     popup.querySelector(`.popup__photos`).style.display = "none";
   } else {
     const photosList = popup.querySelector('.popup__photos');
-    const photosItem = photosList.querySelector('.popup__photo');
     const photos = announcement.offer.photos;
     photosList.innerHTML = '';
-    const fragmentPhotos = document.createDocumentFragment();
 
     photos.forEach(function (item) {
-      const copyPhotosItem = photosItem.cloneNode(true);
+      const copyPhotosItem = document.createElement('img');
+
+      copyPhotosItem.classList.add('popup__photo');
+      copyPhotosItem.style.width = '45px';
+      copyPhotosItem.style.height = '40px';
       copyPhotosItem.src = item;
-      fragmentPhotos.appendChild(copyPhotosItem);
+      photosList.append(copyPhotosItem);
     });
-
-    photosList.appendChild(fragmentPhotos);
   }
-  return popup;
 }
 
-function showCard() {
-  map.insertBefore(createCard(createAnnouncements([0])), mapFiltersContainer);
+function showCard(announcement) {
+  map.insertBefore(createCard(announcement), mapFiltersContainer);
 }
 
-showCard();
+showCard(announcementElements[0]);
