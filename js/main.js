@@ -106,7 +106,7 @@ function createAnnouncements(length) {
   return announcements;
 }
 
-map.classList.remove('map--faded');
+// map.classList.remove('map--faded');
 
 // Рендер DOM-элемента на основе объекта
 function renderPin(announcement) {
@@ -130,14 +130,14 @@ function renderPins(аnnouncements) {
   return fragment;
 }
 
-// Отрисовка сгенерированных DOM-элементов
-let announcementElements = createAnnouncements(ANNOUNCEMENT_AMOUNT);
+// // Отрисовка сгенерированных DOM-элементов
+// let announcementElements = createAnnouncements(ANNOUNCEMENT_AMOUNT);
 
-function addPins(announcements) {
-  mapPins.appendChild(renderPins(announcements));
-}
+// function addPins(announcements) {
+//   mapPins.appendChild(renderPins(announcements));
+// }
 
-addPins(announcementElements);
+// addPins(announcementElements);
 
 // дополнительное задание
 const card = document.querySelector('#card').content;
@@ -177,7 +177,7 @@ function createFeaturesBlock(announcement) {
     const features = announcement.offer.features;
     featuresList.innerHTML = '';
 
-    features.forEach(function (value) {
+    features.forEach(function(value) {
       const copyFeaturesItem = document.createElement('li');
 
       copyFeaturesItem.classList.add(`popup__feature`);
@@ -196,7 +196,7 @@ function createPhotosBlock(announcement) {
     const photos = announcement.offer.photos;
     photosList.innerHTML = '';
 
-    photos.forEach(function (item) {
+    photos.forEach(function(item) {
       const copyPhotosItem = document.createElement('img');
 
       copyPhotosItem.classList.add('popup__photo');
@@ -208,8 +208,103 @@ function createPhotosBlock(announcement) {
   }
 }
 
-function showCard(announcement) {
-  map.insertBefore(createCard(announcement), mapFiltersContainer);
+// function showCard(announcement) {
+//   map.insertBefore(createCard(announcement), mapFiltersContainer);
+// }
+
+// showCard(announcementElements[0]);
+
+
+// доверяй, но проверяй (часть 1)
+const mapPinMainElement = document.querySelector('.map__pin--main');
+const adFormElement = document.querySelector('.ad-form');
+const adFormFieldsetElements = adFormElement.querySelectorAll('.ad-form__element');
+const mapFiltersForm = document.querySelector('.map__filters');
+const mapFilterElements = mapFiltersForm.querySelectorAll('.map__filter');
+const mapFeaturesFieldset = mapFiltersForm.querySelector('.map__features');
+const ENTER_KEYCODE = 13;
+
+function showMap() {
+  map.classList.remove('map--faded');
 }
 
-showCard(announcementElements[0]);
+function showForm() {
+  adFormElement.classList.remove('ad-form--disabled');
+}
+
+function disableElements(items) {
+  items.forEach(function(item) {
+    item.setAttribute("disabled", "disabled");
+  })
+}
+
+function showElements(items) {
+  items.forEach(function(item) {
+    item.removeAttribute("disabled");
+  })
+}
+
+function disableFormFieldsets() {
+  disableElements(adFormFieldsetElements);
+}
+
+disableFormFieldsets();
+
+function showFormFieldsets() {
+  showElements(adFormFieldsetElements);
+}
+
+function disableMapFilterElements() {
+  disableElements(mapFilterElements);
+}
+
+function showMapFilterElements() {
+  showElements(mapFilterElements);
+}
+
+function disableMapFeaturesFieldset() {
+  mapFeaturesFieldset.setAttribute("disabled", "disabled");
+}
+
+function showMapFeaturesFieldset() {
+  mapFeaturesFieldset.removeAttribute("disabled");
+}
+
+function hideMapFilters() {
+  mapFiltersForm.classList.add('ad-form--disabled');
+  disableMapFilterElements();
+  disableMapFeaturesFieldset();
+}
+
+hideMapFilters();
+
+function showMapFilters() {
+  mapFiltersForm.classList.remove('ad-form--disabled');
+  showMapFilterElements();
+  showMapFeaturesFieldset();
+}
+
+function activateMap() {
+  showMap();
+  showForm();
+  showFormFieldsets();
+  showMapFilters();
+}
+
+function clickLeftMouseButtonHandler(evt) {
+  let btnCode;
+  btnCode = evt.button;
+  if (evt.button === 0) {
+    activateMap();
+  }
+}
+
+mapPinMainElement.addEventListener('mousedown', clickLeftMouseButtonHandler);
+
+function pressEnterHandler(evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    activateMap();
+  }
+}
+
+mapPinMainElement.addEventListener('keydown', pressEnterHandler);
