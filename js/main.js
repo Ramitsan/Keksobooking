@@ -106,8 +106,6 @@ function createAnnouncements(length) {
   return announcements;
 }
 
-// map.classList.remove('map--faded');
-
 // Рендер DOM-элемента на основе объекта
 function renderPin(announcement) {
   let clonedElement = templateMapPin.cloneNode(true);
@@ -222,7 +220,37 @@ const adFormFieldsetElements = adFormElement.querySelectorAll('.ad-form__element
 const mapFiltersForm = document.querySelector('.map__filters');
 const mapFilterElements = mapFiltersForm.querySelectorAll('.map__filter');
 const mapFeaturesFieldset = mapFiltersForm.querySelector('.map__features');
+const addressInputElement = adFormElement.querySelector('#address');
 const ENTER_KEYCODE = 13;
+const MAIN_PIN_WIDTH = 65;
+const MAIN_PIN_HEIGHT_ACTIVE = 83; // высота с учетом "хвостика" 65 + 18;
+
+const mainPinPositionX = mapPinMainElement.offsetLeft;
+const mainPinPositionY = mapPinMainElement.offsetTop;
+
+const mainPinCenter = {
+  x: Math.round(mainPinPositionX + MAIN_PIN_WIDTH / 2),
+  y: Math.round(mainPinPositionY + MAIN_PIN_WIDTH / 2)
+};
+
+const mainPinAddress = {
+  x: Math.round(mainPinPositionX + MAIN_PIN_WIDTH / 2),
+  y: Math.round(mainPinPositionY + MAIN_PIN_HEIGHT_ACTIVE)
+};
+
+// адрес активного пина
+function getAdressActivePin() {
+  addressInputElement.value = `${mainPinAddress.x}, ${mainPinAddress.y}`;
+};
+
+// адрес неактивного пина
+function getAddressInactivePin() {
+  addressInputElement.value = `${mainPinCenter.x}, ${mainPinCenter.y}`;
+}
+
+function disableMap() {
+  map.classList.add('map--faded');
+}
 
 function showMap() {
   map.classList.remove('map--faded');
@@ -230,6 +258,10 @@ function showMap() {
 
 function showForm() {
   adFormElement.classList.remove('ad-form--disabled');
+}
+
+function disabledForm() {
+  adFormElement.classList.add('ad-form--disabled');
 }
 
 function disableElements(items) {
@@ -247,8 +279,6 @@ function showElements(items) {
 function disableFormFieldsets() {
   disableElements(adFormFieldsetElements);
 }
-
-disableFormFieldsets();
 
 function showFormFieldsets() {
   showElements(adFormFieldsetElements);
@@ -270,13 +300,11 @@ function showMapFeaturesFieldset() {
   mapFeaturesFieldset.removeAttribute("disabled");
 }
 
-function hideMapFilters() {
+function disableMapFilters() {
   mapFiltersForm.classList.add('ad-form--disabled');
   disableMapFilterElements();
   disableMapFeaturesFieldset();
 }
-
-hideMapFilters();
 
 function showMapFilters() {
   mapFiltersForm.classList.remove('ad-form--disabled');
@@ -284,11 +312,22 @@ function showMapFilters() {
   showMapFeaturesFieldset();
 }
 
+function deactivateMap() {
+  disableMap();
+  disabledForm();
+  disableFormFieldsets();
+  disableMapFilters();
+  getAddressInactivePin();
+}
+
+deactivateMap();
+
 function activateMap() {
   showMap();
   showForm();
   showFormFieldsets();
   showMapFilters();
+  getAdressActivePin();
 }
 
 function clickLeftMouseButtonHandler(evt) {
