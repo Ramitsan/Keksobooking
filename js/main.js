@@ -128,18 +128,15 @@ function renderPins(аnnouncements) {
   return fragment;
 }
 
-// // Отрисовка сгенерированных DOM-элементов
-// let announcementElements = createAnnouncements(ANNOUNCEMENT_AMOUNT);
+// Отрисовка сгенерированных DOM-элементов
+let announcementElements = createAnnouncements(ANNOUNCEMENT_AMOUNT);
 
-// function addPins(announcements) {
-//   mapPins.appendChild(renderPins(announcements));
-// }
-
-// addPins(announcementElements);
+function addPins(announcements) {
+  mapPins.appendChild(renderPins(announcements));
+}
 
 // дополнительное задание
-const card = document.querySelector('#card').content;
-const mapCard = card.querySelector('.map__card');
+const card = document.querySelector('#card').content.querySelector('.map__card')
 const mapFiltersContainer = map.querySelector('.map__filters-container');
 const typesOfHousing = {
   flat: 'Квартира',
@@ -148,7 +145,7 @@ const typesOfHousing = {
   palace: 'Дворец'
 };
 
-const popup = mapCard.cloneNode(true);
+const popup = card.cloneNode(true);
 
 function createCard(announcement) {
   popup.querySelector('.popup__title').textContent = announcement.offer.title;
@@ -225,75 +222,68 @@ const ENTER_KEYCODE = 13;
 const MAIN_PIN_WIDTH = 65;
 const MAIN_PIN_HEIGHT_ACTIVE = 83; // высота с учетом "хвостика" 65 + 18;
 
-const mainPinPositionX = mapPinMainElement.offsetLeft;
-const mainPinPositionY = mapPinMainElement.offsetTop;
+const address = getAddressPin();
 
-const mainPinCenter = {
-  x: Math.round(mainPinPositionX + MAIN_PIN_WIDTH / 2),
-  y: Math.round(mainPinPositionY + MAIN_PIN_WIDTH / 2)
-};
+function getAddressPin() {
+  const mainPinPositionX = mapPinMainElement.offsetLeft;
+  const mainPinPositionY = mapPinMainElement.offsetTop;
 
-const mainPinAddress = {
-  x: Math.round(mainPinPositionX + MAIN_PIN_WIDTH / 2),
-  y: Math.round(mainPinPositionY + MAIN_PIN_HEIGHT_ACTIVE)
-};
+  const mainPinCenter = {
+    x: Math.round(mainPinPositionX + MAIN_PIN_WIDTH / 2),
+    y: Math.round(mainPinPositionY + MAIN_PIN_WIDTH / 2)
+  };
 
-// адрес активного пина
-function getAdressActivePin() {
-  addressInputElement.value = `${mainPinAddress.x}, ${mainPinAddress.y}`;
-};
+  const mainPinAddress = {
+    x: Math.round(mainPinPositionX + MAIN_PIN_WIDTH / 2),
+    y: Math.round(mainPinPositionY + MAIN_PIN_HEIGHT_ACTIVE)
+  };
 
-// адрес неактивного пина
-function getAddressInactivePin() {
-  addressInputElement.value = `${mainPinCenter.x}, ${mainPinCenter.y}`;
+  if (map.classList.contains('map--faded')) {
+    return mainPinCenter;
+  } else {
+    return mainPinAddress;
+  }
 }
+
+function setAddressPin(pinCoordinates) {
+  addressInputElement.value = `${pinCoordinates.x}, ${pinCoordinates.y}`;
+};
 
 function disableMap() {
   map.classList.add('map--faded');
 }
 
-function showMap() {
+function enableMap() {
   map.classList.remove('map--faded');
-}
-
-function showForm() {
-  adFormElement.classList.remove('ad-form--disabled');
-}
-
-function disabledForm() {
-  adFormElement.classList.add('ad-form--disabled');
 }
 
 function disableElements(items) {
   items.forEach(function(item) {
-    item.setAttribute("disabled", "disabled");
+    item.disabled = true
   })
 }
 
-function showElements(items) {
+function enableElements(items) {
   items.forEach(function(item) {
     item.removeAttribute("disabled");
-  })
+  });
 }
 
-function disableFormFieldsets() {
+function disableForm() {
+  adFormElement.classList.add('ad-form--disabled');
   disableElements(adFormFieldsetElements);
 }
 
-function showFormFieldsets() {
-  showElements(adFormFieldsetElements);
+function enableForm() {
+  adFormElement.classList.remove('ad-form--disabled');
 }
 
-function disableMapFilterElements() {
-  disableElements(mapFilterElements);
+function showFormFieldsets() {
+  enableElements(adFormFieldsetElements);
 }
 
 function showMapFilterElements() {
-  showElements(mapFilterElements);
-}
-
-function disableMapFeaturesFieldset() {
-  mapFeaturesFieldset.setAttribute("disabled", "disabled");
+  enableElements(mapFilterElements);
 }
 
 function showMapFeaturesFieldset() {
@@ -302,8 +292,8 @@ function showMapFeaturesFieldset() {
 
 function disableMapFilters() {
   mapFiltersForm.classList.add('ad-form--disabled');
-  disableMapFilterElements();
-  disableMapFeaturesFieldset();
+  disableElements(mapFilterElements);
+  mapFeaturesFieldset.disabled = true;
 }
 
 function showMapFilters() {
@@ -312,29 +302,27 @@ function showMapFilters() {
   showMapFeaturesFieldset();
 }
 
-function deactivateMap() {
+function deactivatePage() {
   disableMap();
-  disabledForm();
-  disableFormFieldsets();
+  disableForm();
   disableMapFilters();
-  getAddressInactivePin();
+  setAddressPin(address);
 }
 
-deactivateMap();
+deactivatePage();
 
-function activateMap() {
-  showMap();
-  showForm();
+function activatePage() {
+  enableMap();
+  enableForm();
   showFormFieldsets();
   showMapFilters();
-  getAdressActivePin();
+  setAddressPin(getAddressPin());
+  addPins(announcementElements);
 }
 
 function clickLeftMouseButtonHandler(evt) {
-  let btnCode;
-  btnCode = evt.button;
   if (evt.button === 0) {
-    activateMap();
+    activatePage();
   }
 }
 
@@ -342,7 +330,7 @@ mapPinMainElement.addEventListener('mousedown', clickLeftMouseButtonHandler);
 
 function pressEnterHandler(evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
-    activateMap();
+    activatePage();
   }
 }
 
