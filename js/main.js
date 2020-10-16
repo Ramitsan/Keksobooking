@@ -335,3 +335,22 @@ function pressEnterHandler(evt) {
 }
 
 mapPinMainElement.addEventListener('keydown', pressEnterHandler);
+
+// установка соответствия количества комнат и количества гостей
+const roomsQuantity = adFormElement.querySelector('#room_number');
+const guestsQuantity = adFormElement.querySelector('#capacity');
+const adFormSubmitButton = adFormElement.querySelector('.ad-form__submit');
+
+function selectRooms() {
+  if (roomsQuantity.value === '100') {
+    roomsQuantity.setCustomValidity('100 комнат - только для королей!');
+  } else if (roomsQuantity.value > guestsQuantity.value) {
+    roomsQuantity.setCustomValidity('Комнат больше, чем гостей');
+  } else if (roomsQuantity.value < guestsQuantity.value) {
+    roomsQuantity.setCustomValidity('Комнат меньше, чем гостей');
+  } else {
+    roomsQuantity.setCustomValidity('');
+  }
+};
+
+adFormSubmitButton.addEventListener('click', selectRooms);
