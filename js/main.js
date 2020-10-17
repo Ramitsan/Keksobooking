@@ -228,21 +228,19 @@ function getAddressPin() {
   const mainPinPositionX = mapPinMainElement.offsetLeft;
   const mainPinPositionY = mapPinMainElement.offsetTop;
 
-  const mainPinCenter = {
-    x: Math.round(mainPinPositionX + MAIN_PIN_WIDTH / 2),
-    y: Math.round(mainPinPositionY + MAIN_PIN_WIDTH / 2)
-  };
-
-  const mainPinAddress = {
-    x: Math.round(mainPinPositionX + MAIN_PIN_WIDTH / 2),
-    y: Math.round(mainPinPositionY + MAIN_PIN_HEIGHT_ACTIVE)
-  };
-
+  let mainPinAddress = {};
   if (map.classList.contains('map--faded')) {
-    return mainPinCenter;
+    mainPinAddress = {
+      x: Math.round(mainPinPositionX + MAIN_PIN_WIDTH / 2),
+      y: Math.round(mainPinPositionY + MAIN_PIN_WIDTH / 2)
+    };
   } else {
-    return mainPinAddress;
+    mainPinAddress = {
+      x: Math.round(mainPinPositionX + MAIN_PIN_WIDTH / 2),
+      y: Math.round(mainPinPositionY + MAIN_PIN_HEIGHT_ACTIVE)
+    };
   }
+  return mainPinAddress;
 }
 
 function setAddressPin(pinCoordinates) {
@@ -258,13 +256,13 @@ function enableMap() {
 }
 
 function disableElements(items) {
-  items.forEach(function (item) {
+  items.forEach(function(item) {
     item.disabled = true;
   });
 }
 
 function enableElements(items) {
-  items.forEach(function (item) {
+  items.forEach(function(item) {
     item.removeAttribute("disabled");
   });
 }
@@ -278,7 +276,7 @@ function enableForm() {
   adFormElement.classList.remove('ad-form--disabled');
 }
 
-function showFormFieldsets() {
+function enableFormFieldsets() {
   enableElements(adFormFieldsetElements);
 }
 
@@ -296,7 +294,7 @@ function disableMapFilters() {
   mapFeaturesFieldset.disabled = true;
 }
 
-function showMapFilters() {
+function enableMapFilters() {
   mapFiltersForm.classList.remove('ad-form--disabled');
   showMapFilterElements();
   showMapFeaturesFieldset();
@@ -314,8 +312,8 @@ deactivatePage();
 function activatePage() {
   enableMap();
   enableForm();
-  showFormFieldsets();
-  showMapFilters();
+  enableFormFieldsets();
+  enableMapFilters();
   setAddressPin(getAddressPin());
   addPins(announcementElements);
 }
