@@ -1,19 +1,23 @@
 'use strict';
 
-(function () {
+(function() {
   const adFormElement = document.querySelector('.ad-form');
   const adFormFieldsetElements = adFormElement.querySelectorAll('.ad-form__element');
 
   function disableElements(items) {
-    items.forEach(function (item) {
+    items.forEach(function(item) {
       item.disabled = true;
     });
   }
 
   function enableElements(items) {
-    items.forEach(function (item) {
+    items.forEach(function(item) {
       item.removeAttribute("disabled");
     });
+  }
+
+  function enableFormFieldsets() {
+    enableElements(adFormFieldsetElements);
   }
 
   function disableForm() {
@@ -23,10 +27,12 @@
 
   function enableForm() {
     adFormElement.classList.remove('ad-form--disabled');
+    enableFormFieldsets();
   }
 
-  function enableFormFieldsets() {
-    enableElements(adFormFieldsetElements);
+
+  function setAddressPin(pinCoordinates) {
+    window.pin.addressInputElement.value = `${pinCoordinates.x}, ${pinCoordinates.y}`;
   }
 
   // установка соответствия количества комнат и количества гостей
@@ -55,7 +61,7 @@
     enableElements: enableElements,
     disableForm: disableForm,
     enableForm: enableForm,
-    enableFormFieldsets: enableFormFieldsets
+    setAddressPin: setAddressPin
   };
 
 })();

@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(function() {
   const card = document.querySelector('#card').content.querySelector('.map__card');
   const typesOfHousing = {
     flat: 'Квартира',
@@ -36,7 +36,7 @@
       const features = announcement.offer.features;
       featuresList.innerHTML = '';
 
-      features.forEach(function (value) {
+      features.forEach(function(value) {
         const copyFeaturesItem = document.createElement('li');
 
         copyFeaturesItem.classList.add(`popup__feature`);
@@ -55,7 +55,7 @@
       const photos = announcement.offer.photos;
       photosList.innerHTML = '';
 
-      photos.forEach(function (item) {
+      photos.forEach(function(item) {
         const copyPhotosItem = document.createElement('img');
 
         copyPhotosItem.classList.add('popup__photo');
@@ -71,6 +71,8 @@
     window.map.map.insertBefore(createCard(announcement), window.map.mapFiltersContainer);
   }
 
-  showCard(window.map.announcementElements[0]);
+  window.card = {
+    showCard: showCard
+  };
 
 })();

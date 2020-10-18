@@ -1,56 +1,48 @@
 'use strict';
 
-(function () {
-  const mapPinMainElement = document.querySelector('.map__pin--main');
-  const addressInputElement = window.form.adFormElement.querySelector('#address');
-  const MAIN_PIN_WIDTH = 65;
-  const MAIN_PIN_HEIGHT_ACTIVE = 83; // высота с учетом "хвостика" 65 + 18;
+(function() {
+  const PIN_WIDTH = 40;
+  const PIN_HEIGHT = 44;
+  const POINTER_PIN_HEIGHT = 5;
+  const ANNOUNCEMENT_AMOUNT = 8;
 
-  const address = getAddressPin();
+  const templatePin = document.querySelector('#pin').content.querySelector('.map__pin');
+  const mapPins = document.querySelector('.map__pins');
 
-  function setAddressPin(pinCoordinates) {
-    addressInputElement.value = `${pinCoordinates.x}, ${pinCoordinates.y}`;
+  // Рендер DOM-элемента на основе объекта
+  function renderPin(announcement) {
+    let clonedElement = templatePin.cloneNode(true);
+    let clonedElementImg = clonedElement.querySelector('img');
+
+    clonedElement.style.top = announcement.location.y - PIN_HEIGHT - POINTER_PIN_HEIGHT + 'px';
+    clonedElement.style.left = announcement.location.x - PIN_WIDTH / 2 + 'px';
+
+    clonedElementImg.src = announcement.author.avatar;
+    clonedElementImg.alt = announcement.offer.title;
+    return clonedElement;
   }
 
-  function getAddressPin() {
-    const mainPinPositionX = mapPinMainElement.offsetLeft;
-    const mainPinPositionY = mapPinMainElement.offsetTop;
-
-    let mainPinAddress = {};
-    if (window.map.map.classList.contains('map--faded')) {
-      mainPinAddress = {
-        x: Math.round(mainPinPositionX + MAIN_PIN_WIDTH / 2),
-        y: Math.round(mainPinPositionY + MAIN_PIN_WIDTH / 2)
-      };
-    } else {
-      mainPinAddress = {
-        x: Math.round(mainPinPositionX + MAIN_PIN_WIDTH / 2),
-        y: Math.round(mainPinPositionY + MAIN_PIN_HEIGHT_ACTIVE)
-      };
+  // Заполнение DOM-элемента на основе массива
+  function renderPins(аnnouncements) {
+    let fragment = document.createDocumentFragment();
+    for (let j = 0; j < аnnouncements.length; j++) {
+      fragment.appendChild(renderPin(аnnouncements[j]));
     }
-    return mainPinAddress;
+    return fragment;
   }
 
-  function clickLeftMouseButtonHandler(evt) {
-    if (evt.button === 0) {
-      window.main.activatePage();
-    }
+  // Отрисовка сгенерированных DOM-элементов
+  let announcementElements = window.data.createAnnouncements(ANNOUNCEMENT_AMOUNT);
+
+  function addPins(announcements) {
+    mapPins.appendChild(renderPins(announcements));
   }
 
-  function pressEnterHandler() {
-    if (window.util.pressEnter) {
-      window.main.activatePage();
-    }
-  }
-
-  mapPinMainElement.addEventListener('mousedown', clickLeftMouseButtonHandler);
-  mapPinMainElement.addEventListener('keydown', pressEnterHandler);
+  window.card.showCard(announcementElements[0]);
 
   window.pin = {
-    mapPinMainElement: mapPinMainElement,
-    address: address,
-    setAddressPin: setAddressPin,
-    getAddressPin: getAddressPin
+    announcementElements: announcementElements,
+    addPins: addPins
   };
 
 })();
