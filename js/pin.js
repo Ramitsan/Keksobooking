@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
   const mapPinMainElement = document.querySelector('.map__pin--main');
   const addressInputElement = window.form.adFormElement.querySelector('#address');
   const MAIN_PIN_WIDTH = 65;

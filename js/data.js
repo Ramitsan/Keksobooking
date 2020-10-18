@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
 
   // генерация случайного числа в заданном интервале, включительно
   function getRandomInteger(min, max) {

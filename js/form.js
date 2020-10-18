@@ -1,17 +1,17 @@
 'use strict';
 
-(function() {
+(function () {
   const adFormElement = document.querySelector('.ad-form');
   const adFormFieldsetElements = adFormElement.querySelectorAll('.ad-form__element');
 
   function disableElements(items) {
-    items.forEach(function(item) {
+    items.forEach(function (item) {
       item.disabled = true;
     });
   }
 
   function enableElements(items) {
-    items.forEach(function(item) {
+    items.forEach(function (item) {
       item.removeAttribute("disabled");
     });
   }

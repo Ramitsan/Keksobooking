@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
   const OFFER_TITLE = ['Шикарное предложение!', 'Уютное гнездышко', 'Роскошные апартаменты', 'Дешево и сердито'];
   const OFFER_TYPE = ['palace', 'flat', 'house', 'bungalow'];
   const OFFER_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -127,7 +127,6 @@
 
   window.map = {
     map: map,
-    // mapFiltersContainer: mapFiltersContainer,
     createAnnouncement: createAnnouncement,
     createAnnouncements: createAnnouncements,
     renderPin: renderPin,
@@ -139,6 +138,5 @@
     disableMapFilters: disableMapFilters,
     enableMapFilters: enableMapFilters
   };
-
 
 })();
