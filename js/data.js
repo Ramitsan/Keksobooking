@@ -98,8 +98,6 @@
     return announcements;
   }
 
-  window.data = {
-    createAnnouncements: createAnnouncements
-  };
+  `window.data = createAnnouncements()`
 
 })();

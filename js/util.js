@@ -15,6 +15,18 @@
 
     isEnterPress: function(evt) {
       return evt.keyCode === window.util.ENTER_KEYCODE;
+    },
+
+    disableElements: function(items) {
+      items.forEach(function(item) {
+        item.disabled = true;
+      });
+    },
+
+    enableElements: function(items) {
+      items.forEach(function(item) {
+        item.removeAttribute("disabled");
+      });
     }
   };
 

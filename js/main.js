@@ -1,10 +1,12 @@
 'use strict';
 
 (function() {
+  const ANNOUNCEMENT_AMOUNT = 8;
+
   function deactivatePage() {
     window.map.disableMap();
     window.form.disableForm();
-    window.form.setAddressPin(window.mainPin.address);
+    window.form.setAddressPin(window.mainPin.getAddressPin());
   }
 
   deactivatePage();
@@ -13,7 +15,7 @@
     window.map.enableMap();
     window.form.enableForm();
     window.form.setAddressPin(window.mainPin.getAddressPin());
-    window.pin.addPins(window.pin.announcementElements);
+    window.map.addPins(window.data);
   }
 
   function clickLeftMouseButtonHandler(evt) {
@@ -28,8 +30,14 @@
     }
   }
 
+  let announcementElements = createAnnouncements(ANNOUNCEMENT_AMOUNT);
+
+  function showCard(announcement) {
+    window.map.map.insertBefore(window.card.createCard(announcement), window.map.mapFiltersContainer);
+  }
+  showCard(announcementElements[0]);
+
   window.mainPin.mapPinMainElement.addEventListener('mousedown', clickLeftMouseButtonHandler);
   window.mainPin.mapPinMainElement.addEventListener('keydown', pressEnterHandler);
-
 
 })();

@@ -3,26 +3,16 @@
 (function() {
   const adFormElement = document.querySelector('.ad-form');
   const adFormFieldsetElements = adFormElement.querySelectorAll('.ad-form__element');
+  const addressInputElement = adFormElement.querySelector('#address');
 
-  function disableElements(items) {
-    items.forEach(function(item) {
-      item.disabled = true;
-    });
-  }
-
-  function enableElements(items) {
-    items.forEach(function(item) {
-      item.removeAttribute("disabled");
-    });
-  }
 
   function enableFormFieldsets() {
-    enableElements(adFormFieldsetElements);
+    window.util.enableElements(adFormFieldsetElements);
   }
 
   function disableForm() {
     adFormElement.classList.add('ad-form--disabled');
-    disableElements(adFormFieldsetElements);
+    window.util.disableElements(adFormFieldsetElements);
   }
 
   function enableForm() {
@@ -30,9 +20,8 @@
     enableFormFieldsets();
   }
 
-
   function setAddressPin(pinCoordinates) {
-    window.mainPin.addressInputElement.value = `${pinCoordinates.x}, ${pinCoordinates.y}`;
+    addressInputElement.value = `${pinCoordinates.x}, ${pinCoordinates.y}`;
   }
 
   // установка соответствия количества комнат и количества гостей
@@ -56,9 +45,6 @@
 
   window.form = {
     adFormElement: adFormElement,
-    adFormFieldsetElements: adFormFieldsetElements,
-    disableElements: disableElements,
-    enableElements: enableElements,
     disableForm: disableForm,
     enableForm: enableForm,
     setAddressPin: setAddressPin

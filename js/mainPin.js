@@ -2,11 +2,10 @@
 
 (function() {
   const mapPinMainElement = document.querySelector('.map__pin--main');
-  const addressInputElement = window.form.adFormElement.querySelector('#address');
   const MAIN_PIN_WIDTH = 65;
   const MAIN_PIN_HEIGHT_ACTIVE = 83; // высота с учетом "хвостика" 65 + 18;
 
-  const address = getAddressPin();
+  // const address = getAddressPin();
 
   function getAddressPin() {
     const mainPinPositionX = mapPinMainElement.offsetLeft;
@@ -29,8 +28,6 @@
 
   window.mainPin = {
     mapPinMainElement: mapPinMainElement,
-    addressInputElement: addressInputElement,
-    address: address,
     getAddressPin: getAddressPin
   };
 
