@@ -1,11 +1,10 @@
 'use strict';
 
 (function() {
-
   function deactivatePage() {
     window.map.disableMap();
     window.form.disableForm();
-    window.form.setAddressPin(window.pin.address);
+    window.form.setAddressPin(window.mainPin.address);
   }
 
   deactivatePage();
@@ -13,7 +12,7 @@
   function activatePage() {
     window.map.enableMap();
     window.form.enableForm();
-    window.form.setAddressPin(window.pin.getAddressPin());
+    window.form.setAddressPin(window.mainPin.getAddressPin());
     window.pin.addPins(window.pin.announcementElements);
   }
 
@@ -29,8 +28,8 @@
     }
   }
 
-  window.pin.mapPinMainElement.addEventListener('mousedown', clickLeftMouseButtonHandler);
-  window.pin.mapPinMainElement.addEventListener('keydown', pressEnterHandler);
+  window.mainPin.mapPinMainElement.addEventListener('mousedown', clickLeftMouseButtonHandler);
+  window.mainPin.mapPinMainElement.addEventListener('keydown', pressEnterHandler);
 
 
 })();

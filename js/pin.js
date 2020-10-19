@@ -38,9 +38,14 @@
     mapPins.appendChild(renderPins(announcements));
   }
 
-  window.card.showCard(announcementElements[0]);
+  function showCard(announcement) {
+    window.map.map.insertBefore(window.card.createCard(announcement), window.map.mapFiltersContainer);
+  }
+
+  showCard(announcementElements[0]);
 
   window.pin = {
+    mapPins: mapPins,
     announcementElements: announcementElements,
     addPins: addPins
   };

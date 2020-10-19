@@ -67,12 +67,8 @@
     }
   }
 
-  function showCard(announcement) {
-    window.map.map.insertBefore(createCard(announcement), window.map.mapFiltersContainer);
-  }
-
   window.card = {
-    showCard: showCard
+    createCard: createCard
   };
 
 })();

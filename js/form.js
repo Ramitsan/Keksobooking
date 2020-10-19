@@ -32,7 +32,7 @@
 
 
   function setAddressPin(pinCoordinates) {
-    window.pin.addressInputElement.value = `${pinCoordinates.x}, ${pinCoordinates.y}`;
+    window.mainPin.addressInputElement.value = `${pinCoordinates.x}, ${pinCoordinates.y}`;
   }
 
   // установка соответствия количества комнат и количества гостей

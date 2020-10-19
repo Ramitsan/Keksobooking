@@ -27,7 +27,7 @@
     return mainPinAddress;
   }
 
-  window.pin = {
+  window.mainPin = {
     mapPinMainElement: mapPinMainElement,
     addressInputElement: addressInputElement,
     address: address,
