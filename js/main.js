@@ -1,7 +1,7 @@
 'use strict';
 
 (function() {
-  const ANNOUNCEMENT_AMOUNT = 8;
+
 
   function deactivatePage() {
     window.map.disableMap();
@@ -30,12 +30,12 @@
     }
   }
 
-  let announcementElements = createAnnouncements(ANNOUNCEMENT_AMOUNT);
+  let announcementElements = window.data;
 
   function showCard(announcement) {
     window.map.map.insertBefore(window.card.createCard(announcement), window.map.mapFiltersContainer);
   }
-  showCard(announcementElements[0]);
+  // showCard(announcementElements[0]);
 
   window.mainPin.mapPinMainElement.addEventListener('mousedown', clickLeftMouseButtonHandler);
   window.mainPin.mapPinMainElement.addEventListener('keydown', pressEnterHandler);
