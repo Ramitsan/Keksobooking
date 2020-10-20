@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
   const adFormElement = document.querySelector('.ad-form');
   const adFormFieldsetElements = adFormElement.querySelectorAll('.ad-form__element');
   const addressInputElement = adFormElement.querySelector('#address');

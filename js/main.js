@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
 
 
   function deactivatePage() {
@@ -30,11 +30,11 @@
     }
   }
 
-  let announcementElements = window.data;
+  // let announcementElements = window.data;
 
-  function showCard(announcement) {
-    window.map.map.insertBefore(window.card.createCard(announcement), window.map.mapFiltersContainer);
-  }
+  // function showCard(announcement) {
+  //   window.map.map.insertBefore(window.card.createCard(announcement), window.map.mapFiltersContainer);
+  // }
   // showCard(announcementElements[0]);
 
   window.mainPin.mapPinMainElement.addEventListener('mousedown', clickLeftMouseButtonHandler);

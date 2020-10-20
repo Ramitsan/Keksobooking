@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
   const OFFER_TITLE = ['Шикарное предложение!', 'Уютное гнездышко', 'Роскошные апартаменты', 'Дешево и сердито'];
   const OFFER_TYPE = ['palace', 'flat', 'house', 'bungalow'];
   const OFFER_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -99,5 +99,5 @@
     return announcements;
   }
 
-  window.data = createAnnouncements(ANNOUNCEMENT_AMOUNT)
+  window.data = createAnnouncements(ANNOUNCEMENT_AMOUNT);
 })();
