@@ -67,8 +67,33 @@
     }
   }
 
+  //добавляем закрытие карточки по клику на "крестик"
+  popup.querySelector(`.popup__close`).addEventListener(`click`, function() {
+    popup.remove();
+  });
+
+  //добавляем закрытие карточки по клику на Esc
+  document.addEventListener(`keydown`, function(e) {
+    if (window.util.isEscPress(e)) {
+      popup.remove();
+    }
+  });
+
+  const removeCard = () => {
+    const mapCardElement = window.map.map.querySelector(`.map__card`);
+    if (mapCardElement) {
+      mapCardElement.remove();
+    }
+  };
+
+  const renderCard = (cardItem) => {
+    removeCard();
+    window.map.map.insertBefore(cardItem, window.map.mapFiltersContainer);
+  };
+
   window.card = {
-    createCard: createCard
+    createCard: createCard,
+    renderCard: renderCard
   };
 
 })();

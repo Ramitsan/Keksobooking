@@ -18,6 +18,7 @@
   const ANNOUNCEMENT_AMOUNT = 8;
 
 
+
   // генерация случайного числа в заданном интервале, включительно
   const getRandomInteger = (min, max) => {
     return Math.floor(Math.random() * (max - min)) + min;
