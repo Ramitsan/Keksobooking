@@ -29,14 +29,14 @@
     }
   }
 
-  // let announcementElements = window.data;
+  let announcementElements = window.data;
 
-  // function showCard(announcement) {
-  //   window.map.map.insertBefore(window.card.createCard(announcement), window.map.mapFiltersContainer);
-  // }
-  // showCard(announcementElements[0]);
+  function showCard(announcement) {
+    window.map.map.insertBefore(window.card.createCard(announcement), window.map.mapFiltersContainer);
+  }
+  showCard(announcementElements[0]);
 
-  window.mainPin.mapPinMainElement.addEventListener('mousedown', clickLeftMouseButtonHandler);
-  window.mainPin.mapPinMainElement.addEventListener('keydown', pressEnterHandler);
+  window.mainPin.mapPinMainElement.addEventListener(`mousedown`, clickLeftMouseButtonHandler);
+  window.mainPin.mapPinMainElement.addEventListener(`keydown`, pressEnterHandler);
 
 })();

@@ -25,7 +25,7 @@
 
     enableElements: function(items) {
       items.forEach(function(item) {
-        item.removeAttribute("disabled");
+        item.disabled = false;
       });
     }
   };

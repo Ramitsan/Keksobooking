@@ -1,11 +1,11 @@
 'use strict';
 
 (function() {
-  const OFFER_TITLE = ['Шикарное предложение!', 'Уютное гнездышко', 'Роскошные апартаменты', 'Дешево и сердито'];
-  const OFFER_TYPE = ['palace', 'flat', 'house', 'bungalow'];
-  const OFFER_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-  const OFFER_DESCRIPTION = ['Великолепная квартира-студия в центре Токио', 'Подходит как туристам, так и бизнесменам', 'Квартира полностью укомплектована и недавно отремонтирована'];
-  const OFFER_PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+  const OFFER_TITLE = [`Шикарное предложение!`, `Уютное гнездышко`, `Роскошные апартаменты`, `Дешево и сердито`];
+  const OFFER_TYPE = [`palace`, `flat`, `house`, `bungalow`];
+  const OFFER_FEATURES = [`wifi`, `dishwasher`, `parking`, `washer`, `elevator`, `conditioner`];
+  const OFFER_DESCRIPTION = [`Великолепная квартира-студия в центре Токио`, `Подходит как туристам, так и бизнесменам`, `Квартира полностью укомплектована и недавно отремонтирована`];
+  const OFFER_PHOTOS = [`http://o0.github.io/assets/images/tokyo/hotel1.jpg`, `http://o0.github.io/assets/images/tokyo/hotel2.jpg`, `http://o0.github.io/assets/images/tokyo/hotel3.jpg`];
   const MIN_HOUR = 12;
   const MAX_HOUR = 14;
   const MAX_WIDHT_POINT = 1200;
@@ -40,7 +40,7 @@
 
   // генерируем номер аватара автора
   const getNumberAvatar = (index) => {
-    let numberAvatar = 'img/avatars/user0' + index + '.png';
+    let numberAvatar = `img/avatars/user0` + index + `.png`;
     return numberAvatar;
   }
 
@@ -74,13 +74,13 @@
       },
       offer: {
         title: getOfferTitle(OFFER_TITLE),
-        address: location.x + ', ' + location.y,
+        address: location.x + `, ` + location.y,
         price: getRandomInteger(MIN_PRICE, MAX_PRICE),
         type: getOfferType(OFFER_TYPE),
         rooms: getRandomInteger(1, MAX_QUANTITY_ROOMS),
         guests: getRandomInteger(1, MAX_QUANTITY_GUESTS),
-        checkin: getRandomInteger(MIN_HOUR, MAX_HOUR) + ':' + '00',
-        checkout: getRandomInteger(MIN_HOUR, MAX_HOUR) + ':' + '00',
+        checkin: getRandomInteger(MIN_HOUR, MAX_HOUR) + `:` + `00`,
+        checkout: getRandomInteger(MIN_HOUR, MAX_HOUR) + `:` + `00`,
         features: getRandomArray(OFFER_FEATURES),
         description: getOfferDescription(OFFER_DESCRIPTION),
         photos: getRandomArray(OFFER_PHOTOS)
