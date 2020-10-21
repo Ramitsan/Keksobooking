@@ -58,6 +58,27 @@
     }
   })
 
+  // устанавливаем соответствие типа жилья и минимальной цены за ночь
+  const typeInputElement = adFormElement.querySelector(`#type`);
+  const priceInputElement = adFormElement.querySelector(`#price`);
+
+  const selectTypeAndPrice = () => {
+    if (typeInputElement.value === `bungalow`) {
+      priceInputElement.min === `0`;
+      priceInputElement.placeholder = `0`;
+    } else if (typeInputElement.value === `flat`) {
+      priceInputElement.min === `1000`;
+      priceInputElement.placeholder = `1 000`;
+    } else if (typeInputElement.value === `house`) {
+      priceInputElement.min === `5000`;
+      priceInputElement.placeholder = `5 000`;
+    } else if (typeInputElement.value === `palace`) {
+      priceInputElement.min === `10000`;
+      priceInputElement.placeholder = `10 000`;
+    }
+  }
+
+  typeInputElement.addEventListener(`change`, selectTypeAndPrice);
 
   window.form = {
     adFormElement: adFormElement,
