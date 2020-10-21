@@ -8,7 +8,7 @@
   const templatePin = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
 
 
-  // Рендер DOM-элемента на основе объекта
+  // Рендер пина
   const renderPin = (announcement) => {
     let clonedElement = templatePin.cloneNode(true);
     let clonedElementImg = clonedElement.querySelector(`img`);

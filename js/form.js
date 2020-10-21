@@ -5,7 +5,6 @@
   const adFormFieldsetElements = adFormElement.querySelectorAll(`.ad-form__element`);
   const addressInputElement = adFormElement.querySelector(`#address`);
 
-
   const enableFormFieldsets = () => {
     window.util.enableElements(adFormFieldsetElements);
   }
@@ -42,6 +41,23 @@
   }
 
   adFormSubmitButton.addEventListener(`click`, selectRooms);
+
+  // проверка заголовка объявления
+  const titleInputElement = adFormElement.querySelector(`#title`);
+  const MIN_TITLE_LENGTH = 30;
+  const MAX_TITLE_LENGTH = 100;
+
+  titleInputElement.addEventListener(`input`, () => {
+    const titleValueLength = titleInputElement.value.length;
+    if (titleValueLength < MIN_TITLE_LENGTH) {
+      titleInputElement.setCustomValidity(`Минимальная длина заголовка - ${MIN_TITLE_LENGTH} символов. Наберите еще ${MIN_TITLE_LENGTH - titleValueLength} символов`);
+    } else if (titleValueLength > MAX_TITLE_LENGTH) {
+      titleInputElement.setCustomValidity(`Максимальная длина заголовка - ${MAX_TITLE_LENGTH} символов. Удалите ${titleValueLength - MIN_TITLE_LENGTH} символов`);
+    } else {
+      titleInputElement.setCustomValidity(``);
+    }
+  })
+
 
   window.form = {
     adFormElement: adFormElement,
