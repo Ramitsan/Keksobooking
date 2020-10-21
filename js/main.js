@@ -1,9 +1,8 @@
 'use strict';
 
-(function () {
+(function() {
 
-
-  function deactivatePage() {
+  const deactivatePage = () => {
     window.map.disableMap();
     window.form.disableForm();
     window.form.setAddressPin(window.mainPin.getAddressPin());
@@ -11,20 +10,20 @@
 
   deactivatePage();
 
-  function activatePage() {
+  const activatePage = () => {
     window.map.enableMap();
     window.form.enableForm();
     window.form.setAddressPin(window.mainPin.getAddressPin());
     window.map.addPins(window.data);
   }
 
-  function clickLeftMouseButtonHandler(evt) {
+  const clickLeftMouseButtonHandler = (evt) => {
     if (evt.button === 0) {
       activatePage();
     }
   }
 
-  function pressEnterHandler() {
+  const pressEnterHandler = () => {
     if (window.util.isEnterPress) {
       activatePage();
     }

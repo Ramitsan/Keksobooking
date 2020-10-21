@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(function() {
   const OFFER_TITLE = ['Шикарное предложение!', 'Уютное гнездышко', 'Роскошные апартаменты', 'Дешево и сердито'];
   const OFFER_TYPE = ['palace', 'flat', 'house', 'bungalow'];
   const OFFER_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -19,11 +19,11 @@
 
 
   // генерация случайного числа в заданном интервале, включительно
-  function getRandomInteger(min, max) {
+  const getRandomInteger = (min, max) => {
     return Math.floor(Math.random() * (max - min)) + min;
   }
 
-  function shuffle(arr) {
+  const shuffle = (arr) => {
     for (let i = arr.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
       let swap = arr[j];
@@ -33,37 +33,37 @@
     return arr;
   }
 
-  function getRandomArray(arr) {
+  const getRandomArray = (arr) => {
     const newArray = arr.slice();
     return shuffle(newArray).splice(0, getRandomInteger(0, newArray.length + 1));
   }
 
   // генерируем номер аватара автора
-  function getNumberAvatar(index) {
+  const getNumberAvatar = (index) => {
     let numberAvatar = 'img/avatars/user0' + index + '.png';
     return numberAvatar;
   }
 
   // генерируем заголовок предложения
-  function getOfferTitle(arr) {
+  const getOfferTitle = (arr) => {
     let offerTitle = getRandomInteger(0, arr.length);
     return arr[offerTitle];
   }
 
   // генерируем тип жилья
-  function getOfferType(arr) {
+  const getOfferType = (arr) => {
     let offerType = getRandomInteger(0, arr.length);
     return arr[offerType];
   }
 
   // генерируем описание оффера
-  function getOfferDescription(arr) {
+  const getOfferDescription = (arr) => {
     let offerDescription = getRandomInteger(0, arr.length);
     return arr[offerDescription];
   }
 
   // функция создания всего объявления
-  function createAnnouncement(index) {
+  const createAnnouncement = (index) => {
     const location = {
       x: getRandomInteger(0, MAX_WIDHT_POINT),
       y: getRandomInteger(MIN_HEIGHT_POINT, MAX_HEIGHT_POINT)
@@ -91,7 +91,7 @@
   }
 
   // функция создания массива объектов с объявлениями
-  function createAnnouncements(length) {
+  const createAnnouncements = (length) => {
     let announcements = [];
     for (let i = 0; i < length; i++) {
       announcements[i] = createAnnouncement(i);

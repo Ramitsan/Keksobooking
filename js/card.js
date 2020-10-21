@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(function() {
   const card = document.querySelector('#card').content.querySelector('.map__card');
   const typesOfHousing = {
     flat: 'Квартира',
@@ -28,7 +28,7 @@
   }
 
   // Добавляем блок с удобствами
-  function createFeaturesBlock(announcement) {
+  const createFeaturesBlock = (announcement) => {
     if (announcement.offer.features.length === 0) {
       popup.querySelector(`.popup__features`).style.display = "none";
     } else {
@@ -36,7 +36,7 @@
       const features = announcement.offer.features;
       featuresList.innerHTML = '';
 
-      features.forEach(function (value) {
+      features.forEach(function(value) {
         const copyFeaturesItem = document.createElement('li');
 
         copyFeaturesItem.classList.add(`popup__feature`);
@@ -47,7 +47,7 @@
   }
 
   //  Добавляем блок с фотографиями
-  function createPhotosBlock(announcement) {
+  const createPhotosBlock = (announcement) => {
     if (announcement.offer.photos.length === 0) {
       popup.querySelector(`.popup__photos`).style.display = "none";
     } else {
@@ -55,7 +55,7 @@
       const photos = announcement.offer.photos;
       photosList.innerHTML = '';
 
-      photos.forEach(function (item) {
+      photos.forEach(function(item) {
         const copyPhotosItem = document.createElement('img');
 
         copyPhotosItem.classList.add('popup__photo');

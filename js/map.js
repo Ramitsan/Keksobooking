@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(function() {
 
   const map = document.querySelector('.map');
   const mapPins = document.querySelector('.map__pins');
@@ -10,39 +10,39 @@
   const mapFeaturesFieldset = mapFiltersForm.querySelector('.map__features');
 
   // управление активностью и неактивности карты
-  function disableMap() {
+  const disableMap = () => {
     map.classList.add('map--faded');
     disableMapFilters();
   }
 
-  function enableMap() {
+  const enableMap = () => {
     map.classList.remove('map--faded');
     enableMapFilters();
   }
 
   // управление активностью и неактивностью фильтров на карте
-  function disableMapFilters() {
+  const disableMapFilters = () => {
     mapFiltersForm.classList.add('ad-form--disabled');
     window.util.disableElements(mapFilterElements);
     mapFeaturesFieldset.disabled = true;
   }
 
-  function enableMapFilters() {
+  const enableMapFilters = () => {
     mapFiltersForm.classList.remove('ad-form--disabled');
     showMapFilterElements();
     showMapFeaturesFieldset();
   }
 
-  function showMapFilterElements() {
+  const showMapFilterElements = () => {
     window.util.enableElements(mapFilterElements);
   }
 
-  function showMapFeaturesFieldset() {
+  const showMapFeaturesFieldset = () => {
     mapFeaturesFieldset.disable = false;
   }
 
   // Заполнение DOM-элемента на основе массива
-  function renderPins(аnnouncements) {
+  const renderPins = (аnnouncements) => {
     let fragment = document.createDocumentFragment();
     for (let j = 0; j < аnnouncements.length; j++) {
       fragment.appendChild(window.pin.renderPin(аnnouncements[j]));
@@ -50,7 +50,7 @@
     return fragment;
   }
 
-  function addPins(announcements) {
+  const addPins = (announcements) => {
     mapPins.appendChild(renderPins(announcements));
   }
 
