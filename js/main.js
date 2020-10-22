@@ -1,12 +1,12 @@
 'use strict';
 
-(function() {
+(function () {
 
   const deactivatePage = () => {
     window.map.disableMap();
     window.form.disableForm();
     window.form.setAddressPin(window.mainPin.getAddressPin());
-  }
+  };
 
   deactivatePage();
 
@@ -15,19 +15,19 @@
     window.form.enableForm();
     window.form.setAddressPin(window.mainPin.getAddressPin());
     window.map.addPins(window.data);
-  }
+  };
 
   const clickLeftMouseButtonHandler = (evt) => {
     if (evt.button === 0) {
       activatePage();
     }
-  }
+  };
 
   const pressEnterHandler = (e) => {
     if (window.util.isEnterPress(e)) {
       activatePage();
     }
-  }
+  };
 
   // let announcementElements = window.data;
 

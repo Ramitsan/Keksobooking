@@ -1,36 +1,34 @@
 'use strict';
 
-(function() {
+(function () {
   const adFormElement = document.querySelector(`.ad-form`);
   const adFormFieldsetElements = adFormElement.querySelectorAll(`.ad-form__element`);
   const addressInputElement = adFormElement.querySelector(`#address`);
 
   const enableFormFieldsets = () => {
     window.util.enableElements(adFormFieldsetElements);
-  }
+  };
 
   const disableForm = () => {
     adFormElement.classList.add(`ad-form--disabled`);
     window.util.disableElements(adFormFieldsetElements);
-  }
+  };
 
   const enableForm = () => {
     adFormElement.classList.remove(`ad-form--disabled`);
     enableFormFieldsets();
-  }
+  };
 
   const setAddressPin = (pinCoordinates) => {
     addressInputElement.value = `${pinCoordinates.x}, ${pinCoordinates.y}`;
-  }
+  };
 
   // установка соответствия количества комнат и количества гостей
   const roomsQuantityElement = adFormElement.querySelector(`#room_number`);
   const guestsQuantityElement = adFormElement.querySelector(`#capacity`);
   const adFormSubmitButton = adFormElement.querySelector(`.ad-form__submit`);
 
-  const selectRoomsHandler = (evt) => {
-    // evt.preventDefault();
-
+  const selectRoomsHandler = () => {
     switch (roomsQuantityElement.value) {
       case `100`:
         if (guestsQuantityElement.value !== `0`) {
@@ -48,20 +46,20 @@
         break;
       case `2`:
         if (guestsQuantityElement.value !== `1` || guestsQuantityElement.value !== `2`) {
-          roomsQuantityElement.setCustomValidity(`2 комнаты — для 2 гостей или для 1 гостя`);
+          roomsQuantityElement.setCustomValidity(`2 комнаты — для 1 или 2 гостей`);
         } else {
           roomsQuantityElement.setCustomValidity(``);
         }
         break;
       case `3`:
         if (guestsQuantityElement.value === `0`) {
-          roomsQuantityElement.setCustomValidity(`3 комнаты — для 3 гостей, для 2 гостей или для 1 гостя`);
+          roomsQuantityElement.setCustomValidity(`3 комнаты — для 1 или 2 или 3 гостей`);
         } else {
           roomsQuantityElement.setCustomValidity(``);
         }
         break;
     }
-  }
+  };
 
   adFormSubmitButton.addEventListener(`click`, selectRoomsHandler);
 
@@ -79,7 +77,7 @@
     } else {
       titleInputElement.setCustomValidity(``);
     }
-  }
+  };
 
   titleInputElement.addEventListener(`input`, checkTitleHandler);
 
@@ -106,8 +104,7 @@
         priceInputElement.placeholder = `10 000`;
         break;
     }
-  }
-
+  };
 
   typeInputElement.addEventListener(`change`, selectTypeAndPriceHandler);
 
@@ -117,7 +114,7 @@
 
   const selectTimeHandler = () => {
     timeOutInputElement.value = timeInInputElement.value;
-  }
+  };
 
   timeInInputElement.addEventListener(`change`, selectTimeHandler);
 

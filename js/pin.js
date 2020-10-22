@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
   const PIN_WIDTH = 40;
   const PIN_HEIGHT = 44;
   const POINTER_PIN_HEIGHT = 5;
@@ -19,12 +19,12 @@
     clonedElementImg.src = announcement.author.avatar;
     clonedElementImg.alt = announcement.offer.title;
 
-    clonedElement.addEventListener(`click`, function() {
+    clonedElement.addEventListener(`click`, function () {
       window.card.renderCard(window.card.createCard(announcement));
     });
 
     return clonedElement;
-  }
+  };
 
   window.pin = {
     renderPin: renderPin

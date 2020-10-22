@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
   const OFFER_TITLE = [`Шикарное предложение!`, `Уютное гнездышко`, `Роскошные апартаменты`, `Дешево и сердито`];
   const OFFER_TYPE = [`palace`, `flat`, `house`, `bungalow`];
   const OFFER_FEATURES = [`wifi`, `dishwasher`, `parking`, `washer`, `elevator`, `conditioner`];
@@ -18,11 +18,10 @@
   const ANNOUNCEMENT_AMOUNT = 8;
 
 
-
   // генерация случайного числа в заданном интервале, включительно
   const getRandomInteger = (min, max) => {
     return Math.floor(Math.random() * (max - min)) + min;
-  }
+  };
 
   const shuffle = (arr) => {
     for (let i = arr.length - 1; i > 0; i--) {
@@ -32,36 +31,36 @@
       arr[i] = swap;
     }
     return arr;
-  }
+  };
 
   const getRandomArray = (arr) => {
     const newArray = arr.slice();
     return shuffle(newArray).splice(0, getRandomInteger(0, newArray.length + 1));
-  }
+  };
 
   // генерируем номер аватара автора
   const getNumberAvatar = (index) => {
     let numberAvatar = `img/avatars/user0` + index + `.png`;
     return numberAvatar;
-  }
+  };
 
   // генерируем заголовок предложения
   const getOfferTitle = (arr) => {
     let offerTitle = getRandomInteger(0, arr.length);
     return arr[offerTitle];
-  }
+  };
 
   // генерируем тип жилья
   const getOfferType = (arr) => {
     let offerType = getRandomInteger(0, arr.length);
     return arr[offerType];
-  }
+  };
 
   // генерируем описание оффера
   const getOfferDescription = (arr) => {
     let offerDescription = getRandomInteger(0, arr.length);
     return arr[offerDescription];
-  }
+  };
 
   // функция создания всего объявления
   const createAnnouncement = (index) => {
@@ -89,7 +88,7 @@
       location: location
     };
     return announcement;
-  }
+  };
 
   // функция создания массива объектов с объявлениями
   const createAnnouncements = (length) => {
@@ -98,7 +97,7 @@
       announcements[i] = createAnnouncement(i);
     }
     return announcements;
-  }
+  };
 
   window.data = createAnnouncements(ANNOUNCEMENT_AMOUNT);
 })();
