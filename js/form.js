@@ -28,15 +28,38 @@
   const guestsQuantityElement = adFormElement.querySelector(`#capacity`);
   const adFormSubmitButton = adFormElement.querySelector(`.ad-form__submit`);
 
-  const selectRoomsHandler = () => {
-    if (roomsQuantityElement.value === `100`) {
-      roomsQuantityElement.setCustomValidity(`100 комнат - только для королей!`);
-    } else if (roomsQuantityElement.value > guestsQuantityElement.value) {
-      roomsQuantityElement.setCustomValidity(`Комнат больше, чем гостей`);
-    } else if (roomsQuantityElement.value < guestsQuantityElement.value) {
-      roomsQuantityElement.setCustomValidity(`Комнат меньше, чем гостей`);
-    } else {
-      roomsQuantityElement.setCustomValidity(``);
+  const selectRoomsHandler = (evt) => {
+    // evt.preventDefault();
+
+    switch (roomsQuantityElement.value) {
+      case `100`:
+        if (guestsQuantityElement.value !== `0`) {
+          roomsQuantityElement.setCustomValidity(`100 комнат — не для гостей`);
+        } else {
+          roomsQuantityElement.setCustomValidity(``);
+        }
+        break;
+      case `1`:
+        if (guestsQuantityElement.value !== `1`) {
+          roomsQuantityElement.setCustomValidity(`1 комната — для 1 гостя`);
+        } else {
+          roomsQuantityElement.setCustomValidity(``);
+        }
+        break;
+      case `2`:
+        if (guestsQuantityElement.value !== `1` || guestsQuantityElement.value !== `2`) {
+          roomsQuantityElement.setCustomValidity(`2 комнаты — для 2 гостей или для 1 гостя`);
+        } else {
+          roomsQuantityElement.setCustomValidity(``);
+        }
+        break;
+      case `3`:
+        if (guestsQuantityElement.value === `0`) {
+          roomsQuantityElement.setCustomValidity(`3 комнаты — для 3 гостей, для 2 гостей или для 1 гостя`);
+        } else {
+          roomsQuantityElement.setCustomValidity(``);
+        }
+        break;
     }
   }
 
@@ -84,6 +107,7 @@
         break;
     }
   }
+
 
   typeInputElement.addEventListener(`change`, selectTypeAndPriceHandler);
 
