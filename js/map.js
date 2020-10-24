@@ -44,8 +44,13 @@
   // Заполнение DOM-элемента на основе массива
   const renderPins = (аnnouncements) => {
     let fragment = document.createDocumentFragment();
+    let pinItem;
     for (let j = 0; j < аnnouncements.length; j++) {
-      fragment.appendChild(window.pin.renderPin(аnnouncements[j]));
+      pinItem = window.pin.render(аnnouncements[j]);
+      pinItem.addEventListener(`click`, function () {
+        renderCard(window.card.create(аnnouncements[j]));
+      });
+      fragment.appendChild(pinItem);
     }
     return fragment;
   };
@@ -54,11 +59,17 @@
     mapPins.appendChild(renderPins(announcements));
   };
 
+  const renderCard = (cardItem) => {
+    window.card.remove();
+    map.insertBefore(cardItem, mapFiltersContainer);
+  };
+
+
   window.map = {
     map: map,
-    mapFiltersContainer: mapFiltersContainer,
-    disableMap: disableMap,
-    enableMap: enableMap,
+    // mapFiltersContainer: mapFiltersContainer,
+    disable: disableMap,
+    enable: enableMap,
     addPins: addPins
   };
 

@@ -86,42 +86,42 @@
   const priceInputElement = adFormElement.querySelector(`#price`);
 
   const selectTypeAndPriceHandler = () => {
-    switch (typeInputElement.value) {
-      case `bungalow`:
-        priceInputElement.min === `0`;
-        priceInputElement.placeholder = `0`;
-        break;
-      case `flat`:
-        priceInputElement.min === `1000`;
-        priceInputElement.placeholder = `1 000`;
-        break;
-      case `house`:
-        priceInputElement.min === `5000`;
-        priceInputElement.placeholder = `5 000`;
-        break;
-      case `palace`:
-        priceInputElement.min === `10000`;
-        priceInputElement.placeholder = `10 000`;
-        break;
+    if (typeInputElement.value === `bungalow`) {
+      priceInputElement.min === `0`;
+      priceInputElement.placeholder = `0`;
+    }
+    if (typeInputElement.value === `flat`) {
+      priceInputElement.min === `1000`;
+      priceInputElement.placeholder = `1 000`;
+    }
+    if (typeInputElement.value === `house`) {
+      priceInputElement.min === `5000`;
+      priceInputElement.placeholder = `5 000`;
+    }
+    if (typeInputElement.value === `palace`) {
+      priceInputElement.min === `10000`;
+      priceInputElement.placeholder = `10 000`;
     }
   };
 
   typeInputElement.addEventListener(`change`, selectTypeAndPriceHandler);
 
   // устанавливаем соответствие времени заезда и выезда
+  const adFormTimeElement = adFormElement.querySelector(`.ad-form__element--time`);
   const timeInInputElement = adFormElement.querySelector(`#timein`);
   const timeOutInputElement = adFormElement.querySelector(`#timeout`);
 
-  const selectTimeHandler = () => {
-    timeOutInputElement.value = timeInInputElement.value;
+  const selectTimeHandler = (evt) => {
+    timeInInputElement.value = evt.target.value;
+    timeOutInputElement.value = evt.target.value;
   };
 
-  timeInInputElement.addEventListener(`change`, selectTimeHandler);
+  adFormTimeElement.addEventListener('change', selectTimeHandler);
 
   window.form = {
     adFormElement: adFormElement,
-    disableForm: disableForm,
-    enableForm: enableForm,
+    disable: disableForm,
+    enable: enableForm,
     setAddressPin: setAddressPin
   };
 

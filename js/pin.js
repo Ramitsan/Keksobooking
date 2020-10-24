@@ -19,15 +19,11 @@
     clonedElementImg.src = announcement.author.avatar;
     clonedElementImg.alt = announcement.offer.title;
 
-    clonedElement.addEventListener(`click`, function () {
-      window.card.renderCard(window.card.createCard(announcement));
-    });
-
     return clonedElement;
   };
 
   window.pin = {
-    renderPin: renderPin
+    render: renderPin
   };
 
 })();

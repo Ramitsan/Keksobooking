@@ -86,14 +86,9 @@
     }
   };
 
-  const renderCard = (cardItem) => {
-    removeCard();
-    window.map.map.insertBefore(cardItem, window.map.mapFiltersContainer);
-  };
-
   window.card = {
-    createCard: createCard,
-    renderCard: renderCard
+    create: createCard,
+    remove: removeCard
   };
 
 })();

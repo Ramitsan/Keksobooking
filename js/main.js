@@ -3,16 +3,16 @@
 (function () {
 
   const deactivatePage = () => {
-    window.map.disableMap();
-    window.form.disableForm();
+    window.map.disable();
+    window.form.disable();
     window.form.setAddressPin(window.mainPin.getAddressPin());
   };
 
   deactivatePage();
 
   const activatePage = () => {
-    window.map.enableMap();
-    window.form.enableForm();
+    window.map.enable();
+    window.form.enable();
     window.form.setAddressPin(window.mainPin.getAddressPin());
     window.map.addPins(window.data);
   };
