@@ -29,37 +29,22 @@
   const adFormSubmitButton = adFormElement.querySelector(`.ad-form__submit`);
 
   const selectRoomsHandler = () => {
-    switch (roomsQuantityElement.value) {
-      case `100`:
-        if (guestsQuantityElement.value !== `0`) {
-          roomsQuantityElement.setCustomValidity(`100 комнат — не для гостей`);
-        } else {
-          roomsQuantityElement.setCustomValidity(``);
-        }
-        break;
-      case `1`:
-        if (guestsQuantityElement.value !== `1`) {
-          roomsQuantityElement.setCustomValidity(`1 комната — для 1 гостя`);
-        } else {
-          roomsQuantityElement.setCustomValidity(``);
-        }
-        break;
-      case `2`:
-        if (guestsQuantityElement.value !== `1` || guestsQuantityElement.value !== `2`) {
-          roomsQuantityElement.setCustomValidity(`2 комнаты — для 1 или 2 гостей`);
-        } else {
-          roomsQuantityElement.setCustomValidity(``);
-        }
-        break;
-      case `3`:
-        if (guestsQuantityElement.value === `0`) {
-          roomsQuantityElement.setCustomValidity(`3 комнаты — для 1 или 2 или 3 гостей`);
-        } else {
-          roomsQuantityElement.setCustomValidity(``);
-        }
-        break;
+    const roomsValue = roomsQuantityElement.value;
+    const guestValue = guestsQuantityElement.value;
+
+    if (roomsValue === `100` && guestValue !== `0`) {
+      roomsQuantityElement.setCustomValidity(`100 комнат — не для гостей`);
+    } else if (roomsValue === `1` && guestValue !== `1`) {
+      roomsQuantityElement.setCustomValidity(`1 комната — для 1 гостя`);
+    } else if (roomsValue === `2` && (guestValue !== `1` || guestValue !== `2`)) {
+      roomsQuantityElement.setCustomValidity(`2 комнаты — для 1 или 2 гостей`);
+    } else if (roomsValue === `3` && guestValue === `0`) {
+      roomsQuantityElement.setCustomValidity(`3 комнаты — для 1 или 2 или 3 гостей`);
+    } else {
+      roomsQuantityElement.setCustomValidity(``);
     }
   };
+
 
   adFormSubmitButton.addEventListener(`click`, selectRoomsHandler);
 
@@ -86,21 +71,23 @@
   const priceInputElement = adFormElement.querySelector(`#price`);
 
   const selectTypeAndPriceHandler = () => {
-    if (typeInputElement.value === `bungalow`) {
-      priceInputElement.min === `0`;
-      priceInputElement.placeholder = `0`;
-    }
-    if (typeInputElement.value === `flat`) {
-      priceInputElement.min === `1000`;
-      priceInputElement.placeholder = `1 000`;
-    }
-    if (typeInputElement.value === `house`) {
-      priceInputElement.min === `5000`;
-      priceInputElement.placeholder = `5 000`;
-    }
-    if (typeInputElement.value === `palace`) {
-      priceInputElement.min === `10000`;
-      priceInputElement.placeholder = `10 000`;
+    switch (typeInputElement.value) {
+      case `bungalow`:
+        priceInputElement.min = `0`;
+        priceInputElement.placeholder = `0`;
+        break;
+      case `flat`:
+        priceInputElement.min = `1000`;
+        priceInputElement.placeholder = `1 000`;
+        break;
+      case `house`:
+        priceInputElement.min = `5000`;
+        priceInputElement.placeholder = `5 000`;
+        break;
+      case `palace`:
+        priceInputElement.min = `10000`;
+        priceInputElement.placeholder = `10 000`;
+        break;
     }
   };
 
