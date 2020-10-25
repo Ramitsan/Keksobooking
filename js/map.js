@@ -2,63 +2,74 @@
 
 (function () {
 
-  const map = document.querySelector('.map');
-  const mapPins = document.querySelector('.map__pins');
-  const mapFiltersContainer = map.querySelector('.map__filters-container');
-  const mapFiltersForm = document.querySelector('.map__filters');
-  const mapFilterElements = mapFiltersForm.querySelectorAll('.map__filter');
-  const mapFeaturesFieldset = mapFiltersForm.querySelector('.map__features');
+  const map = document.querySelector(`.map`);
+  const mapPins = document.querySelector(`.map__pins`);
+  const mapFiltersContainer = map.querySelector(`.map__filters-container`);
+  const mapFiltersForm = document.querySelector(`.map__filters`);
+  const mapFilterElements = mapFiltersForm.querySelectorAll(`.map__filter`);
+  const mapFeaturesFieldset = mapFiltersForm.querySelector(`.map__features`);
 
   // управление активностью и неактивности карты
-  function disableMap() {
-    map.classList.add('map--faded');
+  const disableMap = () => {
+    map.classList.add(`map--faded`);
     disableMapFilters();
-  }
+  };
 
-  function enableMap() {
-    map.classList.remove('map--faded');
+  const enableMap = () => {
+    map.classList.remove(`map--faded`);
     enableMapFilters();
-  }
+  };
 
   // управление активностью и неактивностью фильтров на карте
-  function disableMapFilters() {
-    mapFiltersForm.classList.add('ad-form--disabled');
+  const disableMapFilters = () => {
+    mapFiltersForm.classList.add(`ad-form--disabled`);
     window.util.disableElements(mapFilterElements);
     mapFeaturesFieldset.disabled = true;
-  }
+  };
 
-  function enableMapFilters() {
-    mapFiltersForm.classList.remove('ad-form--disabled');
+  const enableMapFilters = () => {
+    mapFiltersForm.classList.remove(`ad-form--disabled`);
     showMapFilterElements();
     showMapFeaturesFieldset();
-  }
+  };
 
-  function showMapFilterElements() {
+  const showMapFilterElements = () => {
     window.util.enableElements(mapFilterElements);
-  }
+  };
 
-  function showMapFeaturesFieldset() {
+  const showMapFeaturesFieldset = () => {
     mapFeaturesFieldset.disable = false;
-  }
+  };
 
   // Заполнение DOM-элемента на основе массива
-  function renderPins(аnnouncements) {
+  const renderPins = (аnnouncements) => {
     let fragment = document.createDocumentFragment();
+    let pinItem;
     for (let j = 0; j < аnnouncements.length; j++) {
-      fragment.appendChild(window.pin.renderPin(аnnouncements[j]));
+      pinItem = window.pin.render(аnnouncements[j]);
+      pinItem.addEventListener(`click`, function () {
+        renderCard(window.card.create(аnnouncements[j]));
+      });
+      fragment.appendChild(pinItem);
     }
     return fragment;
-  }
+  };
 
-  function addPins(announcements) {
+  const addPins = (announcements) => {
     mapPins.appendChild(renderPins(announcements));
-  }
+  };
+
+  const renderCard = (cardItem) => {
+    window.card.remove();
+    map.insertBefore(cardItem, mapFiltersContainer);
+  };
+
 
   window.map = {
     map: map,
-    mapFiltersContainer: mapFiltersContainer,
-    disableMap: disableMap,
-    enableMap: enableMap,
+    // mapFiltersContainer: mapFiltersContainer,
+    disable: disableMap,
+    enable: enableMap,
     addPins: addPins
   };
 
