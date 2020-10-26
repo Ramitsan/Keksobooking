@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(function() {
 
   const deactivatePage = () => {
     window.map.disable();
@@ -14,7 +14,7 @@
     window.map.enable();
     window.form.enable();
     window.form.setAddressPin(window.mainPin.getAddressPin());
-    window.map.addPins(window.data);
+    window.map.addPins(window.backend.load);
   };
 
   const clickLeftMouseButtonHandler = (evt) => {

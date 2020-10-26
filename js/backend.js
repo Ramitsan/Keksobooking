@@ -1,8 +1,8 @@
 'use strict';
 
 (function() {
-  const URL_SAVE = 'https://js.dump.academy/kekstagram';
-  const URL_LOAD = 'https://js.dump.academy/kekstagram/data';
+  const URL_SAVE = 'https://21.javascript.pages.academy/keksobooking';
+  const URL_LOAD = 'https://21.javascript.pages.academy/keksobooking/data.json';
   const REQUEST_TIMEOUT = 3000; // 3s
   const REQUEST_STATUS_OK = 200;
   const REQUEST_STATUS_BAD = 400;
