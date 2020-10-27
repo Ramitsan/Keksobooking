@@ -2,7 +2,7 @@
 
 (function() {
   const URL_SAVE = 'https://21.javascript.pages.academy/keksobooking';
-  const URL_LOAD = 'https://21.javascript.pages.academy/keksobooking/data.json';
+  const URL_LOAD = 'https://21.javascript.pages.academy/keksobooking/data';
   const REQUEST_TIMEOUT = 3000; // 3s
   const REQUEST_STATUS_OK = 200;
   const REQUEST_STATUS_BAD = 400;
@@ -15,6 +15,7 @@
     xhr.responseType = 'json';
     xhr.timeout = REQUEST_TIMEOUT;
     xhr.open(method, URL);
+    console.log(xhr.response);
 
     xhr.addEventListener('load', function() {
       switch (xhr.status) {

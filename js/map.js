@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(function() {
 
   const map = document.querySelector(`.map`);
   const mapPins = document.querySelector(`.map__pins`);
@@ -47,13 +47,28 @@
     let pinItem;
     for (let j = 0; j < аnnouncements.length; j++) {
       pinItem = window.pin.render(аnnouncements[j]);
-      pinItem.addEventListener(`click`, function () {
+      pinItem.addEventListener(`click`, function() {
         renderCard(window.card.create(аnnouncements[j]));
       });
       fragment.appendChild(pinItem);
     }
     return fragment;
   };
+
+  // //заполнение DOM-элемента на основе данных, полученных по сети
+  // window.backend.load(function(announcements) {
+  //         let fragment = document.createDocumentFragment();
+  //         let pinItem;
+  //         for (let i = 0; i < announcements.length; i++) {
+  //             pinItem = window.pin.render(announcements[i]);
+  //             pinItem.addEventListener(`click`, function() {
+  //                 renderCard(window.card.create(announcements[j]));
+  //             });
+  //             fragment.appendChild(pinItem);
+  //         }
+  //         return fragment;
+  //     },
+  //     function() {});
 
   const addPins = (announcements) => {
     mapPins.appendChild(renderPins(announcements));
