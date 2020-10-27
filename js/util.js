@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(function() {
 
   var ESC_KEYCODE = 27;
   var ENTER_KEYCODE = 13;
@@ -9,22 +9,22 @@
     ESC_KEYCODE: ESC_KEYCODE,
     ENTER_KEYCODE: ENTER_KEYCODE,
 
-    isEscPress: function (evt) {
+    isEscPress: function(evt) {
       return evt.keyCode === window.util.ESC_KEYCODE;
     },
 
-    isEnterPress: function (evt) {
+    isEnterPress: function(evt) {
       return evt.keyCode === window.util.ENTER_KEYCODE;
     },
 
-    disableElements: function (items) {
-      items.forEach(function (item) {
+    disableElements: function(items) {
+      items.forEach(function(item) {
         item.disabled = true;
       });
     },
 
-    enableElements: function (items) {
-      items.forEach(function (item) {
+    enableElements: function(items) {
+      items.forEach(function(item) {
         item.disabled = false;
       });
     }

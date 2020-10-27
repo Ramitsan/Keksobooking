@@ -10,11 +10,16 @@
 
   deactivatePage();
 
+  // временно для проверки загрузки данных
+  const onError = () => {
+    console.log(`Ошибка!`);
+  }
+
   const activatePage = () => {
     window.map.enable();
     window.form.enable();
-    // window.form.setAddressPin(window.mainPin.getAddressPin());
-    window.map.addPins(window.data);
+    window.form.setAddressPin(window.mainPin.getAddressPin());
+    window.backend.load(window.map.addPins, onError);
   };
 
   const clickLeftMouseButtonHandler = (evt) => {

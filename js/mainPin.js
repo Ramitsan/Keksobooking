@@ -60,7 +60,6 @@
       if (CoordsMoveMainPin.x >= MIN_X && CoordsMoveMainPin.x <= MAX_X) {
         mapPinMainElement.style.left = (mapPinMainElement.offsetLeft - shift.x) + `px`;
       }
-      console.log(CoordsMoveMainPin);
 
       if (CoordsMoveMainPin.y >= MIN_Y && CoordsMoveMainPin.y <= MAX_Y) {
         mapPinMainElement.style.top = (mapPinMainElement.offsetTop - shift.y) + `px`;

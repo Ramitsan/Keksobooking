@@ -55,21 +55,6 @@
     return fragment;
   };
 
-  // //заполнение DOM-элемента на основе данных, полученных по сети
-  // window.backend.load(function(announcements) {
-  //         let fragment = document.createDocumentFragment();
-  //         let pinItem;
-  //         for (let i = 0; i < announcements.length; i++) {
-  //             pinItem = window.pin.render(announcements[i]);
-  //             pinItem.addEventListener(`click`, function() {
-  //                 renderCard(window.card.create(announcements[j]));
-  //             });
-  //             fragment.appendChild(pinItem);
-  //         }
-  //         return fragment;
-  //     },
-  //     function() {});
-
   const addPins = (announcements) => {
     mapPins.appendChild(renderPins(announcements));
   };
@@ -79,10 +64,8 @@
     map.insertBefore(cardItem, mapFiltersContainer);
   };
 
-
   window.map = {
     map: map,
-    // mapFiltersContainer: mapFiltersContainer,
     disable: disableMap,
     enable: enableMap,
     addPins: addPins
