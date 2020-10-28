@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
   const OFFER_TITLE = [`Шикарное предложение!`, `Уютное гнездышко`, `Роскошные апартаменты`, `Дешево и сердито`];
   const OFFER_TYPE = [`palace`, `flat`, `house`, `bungalow`];
   const OFFER_FEATURES = [`wifi`, `dishwasher`, `parking`, `washer`, `elevator`, `conditioner`];
@@ -15,8 +15,6 @@
   const MAX_PRICE = 1000;
   const MAX_QUANTITY_ROOMS = 5;
   const MAX_QUANTITY_GUESTS = 10;
-
-
 
   // генерация случайного числа в заданном интервале, включительно
   const getRandomInteger = (min, max) => {
@@ -99,5 +97,5 @@
     return announcements;
   };
 
-  window.data = createAnnouncements(ANNOUNCEMENT_AMOUNT);
+  window.data = createAnnouncements(window.map.ANNOUNCEMENT_AMOUNT);
 })();

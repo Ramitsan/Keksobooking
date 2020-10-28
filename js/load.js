@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
 
   const successPopup = document.querySelector(`#success`).content.querySelector(`.success`);
   const errorPopup = document.querySelector(`#error`).content.querySelector(`.error`);
@@ -9,17 +9,17 @@
   const success = successPopup.cloneNode(true);
   const successHandler = () => {
     document.body.insertAdjacentElement(`afterbegin`, success);
-  }
+  };
 
   // закрытие окна успешной загрузки по ESC
-  document.addEventListener(`keydown`, function(e) {
+  document.addEventListener(`keydown`, function (e) {
     if (window.util.isEscPress(e)) {
       success.remove();
     }
   });
 
   // по клику на произвольной области
-  document.addEventListener(`click`, function(e) {
+  document.addEventListener(`click`, function (e) {
     if (e.target === success) {
       success.remove();
     }
@@ -45,31 +45,31 @@
   };
 
   // закрытие окна об ошибке по клику
-  error.querySelector(`.error__button`).addEventListener(`click`, function() {
+  error.querySelector(`.error__button`).addEventListener(`click`, function () {
     error.remove();
   });
 
   // по ESC
-  document.addEventListener(`keydown`, function(e) {
+  document.addEventListener(`keydown`, function (e) {
     if (window.util.isEscPress(e)) {
       error.remove();
     }
   });
 
   // по клику на произвольной области
-  document.addEventListener(`click`, function(e) {
+  document.addEventListener(`click`, function (e) {
     if (e.target === error) {
       error.remove();
     }
   });
 
   // отправка данных формы
-  window.form.adFormElement.addEventListener(`submit`, function(evt) {
+  window.form.adFormElement.addEventListener(`submit`, function (evt) {
     evt.preventDefault();
     if (window.form.adFormElement.checkValidity()) {
       window.backend.save(new FormData(window.form.adFormElement), successHandler, errorHandler);
     }
-  })
+  });
   window.load = {
     errorHandler: errorHandler
   };

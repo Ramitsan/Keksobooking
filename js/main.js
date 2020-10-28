@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
 
   const deactivatePage = () => {
     window.map.disable();

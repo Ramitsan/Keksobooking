@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
 
   const map = document.querySelector(`.map`);
   const mapPins = document.querySelector(`.map__pins`);
@@ -48,7 +48,7 @@
     let pinItem;
     for (let j = 0; j < ANNOUNCEMENT_AMOUNT; j++) {
       pinItem = window.pin.render(аnnouncements[j]);
-      pinItem.addEventListener(`click`, function() {
+      pinItem.addEventListener(`click`, function () {
         renderCard(window.card.create(аnnouncements[j]));
       });
       fragment.appendChild(pinItem);
@@ -66,6 +66,7 @@
   };
 
   window.map = {
+    ANNOUNCEMENT_AMOUNT: ANNOUNCEMENT_AMOUNT,
     map: map,
     disable: disableMap,
     enable: enableMap,
