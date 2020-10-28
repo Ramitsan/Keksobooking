@@ -3,9 +3,27 @@
 (function() {
 
   const successPopup = document.querySelector(`#success`).content.querySelector(`.success`);
-  const successMessage = successPopup.querySelector(`.success__message`);
-
   const errorPopup = document.querySelector(`#error`).content.querySelector(`.error`);
+
+
+  const success = successPopup.cloneNode(true);
+  const successHandler = () => {
+    document.body.insertAdjacentElement(`afterbegin`, success);
+  }
+
+  // закрытие окна успешной загрузки по ESC
+  document.addEventListener(`keydown`, function(e) {
+    if (window.util.isEscPress(e)) {
+      success.remove();
+    }
+  });
+
+  // по клику на произвольной области
+  document.addEventListener(`click`, function(e) {
+    if (e.target === success) {
+      success.remove();
+    }
+  });
 
   // обработчик ошибки
   const error = errorPopup.cloneNode(true);
@@ -44,6 +62,14 @@
       error.remove();
     }
   });
+
+  // отправка данных формы
+  window.form.adFormElement.addEventListener(`submit`, function(evt) {
+    evt.preventDefault();
+    if (window.form.adFormElement.checkValidity()) {
+      window.backend.save(new FormData(window.form.adFormElement), successHandler, errorHandler);
+    }
+  })
   window.load = {
     errorHandler: errorHandler
   };
