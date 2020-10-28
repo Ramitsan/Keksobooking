@@ -15,7 +15,7 @@
   const MAX_PRICE = 1000;
   const MAX_QUANTITY_ROOMS = 5;
   const MAX_QUANTITY_GUESTS = 10;
-  const ANNOUNCEMENT_AMOUNT = 8;
+
 
 
   // генерация случайного числа в заданном интервале, включительно
