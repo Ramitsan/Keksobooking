@@ -7,7 +7,7 @@
 
 
   const success = successPopup.cloneNode(true);
-  const successHandler = () => {
+  const showSuccess = () => {
     document.body.insertAdjacentElement(`afterbegin`, success);
   };
 
@@ -27,7 +27,7 @@
 
   // обработчик ошибки
   const error = errorPopup.cloneNode(true);
-  const errorHandler = (errorMessage) => {
+  const showError = (errorMessage) => {
     error.style = `text-align: center`;
     error.style.display = `block`;
     error.style.position = `fixed`;
@@ -63,15 +63,10 @@
     }
   });
 
-  // отправка данных формы
-  window.form.adFormElement.addEventListener(`submit`, function (evt) {
-    evt.preventDefault();
-    if (window.form.adFormElement.checkValidity()) {
-      window.backend.save(new FormData(window.form.adFormElement), successHandler, errorHandler);
-    }
-  });
-  window.load = {
-    errorHandler: errorHandler
+
+  window.message = {
+    showSuccess: showSuccess,
+    showError: showError
   };
 
 })();

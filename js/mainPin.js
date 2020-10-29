@@ -3,11 +3,13 @@
 (function () {
   const mapPinMainElement = document.querySelector(`.map__pin--main`);
   const MAIN_PIN_WIDTH = 65;
-  const MAIN_PIN_HEIGHT_ACTIVE = 83; // высота с учетом "хвостика" 65 + 18;
-  const MIN_Y = 130;
-  const MAX_Y = 630;
-  const MIN_X = -(MAIN_PIN_WIDTH / 2);
-  const MAX_X = window.map.map.offsetWidth - (MAIN_PIN_WIDTH / 2);
+  const MAIN_PIN_HEIGHT_ACTIVE = 85; // высота с учетом "хвостика" 65 + 18;
+  const MAP_MIN_Y = 130;
+  const MAP_MAX_Y = 630;
+  const MAIN_PIN_MIN_Y = MAP_MIN_Y - MAIN_PIN_HEIGHT_ACTIVE;
+  const MAIN_PIN_MAX_Y = MAP_MAX_Y - MAIN_PIN_HEIGHT_ACTIVE;
+  const MAIN_PIN_MIN_X = -(MAIN_PIN_WIDTH / 2);
+  const MAIN_PIN_MAX_X = window.map.map.offsetWidth - (MAIN_PIN_WIDTH / 2);
 
 
   // получаем адрес большого пина при неактивной и активной карте
@@ -52,20 +54,20 @@
         y: moveEvt.clientY
       };
 
-      let CoordsMoveMainPin = {
+      let coordsMoveMainPin = {
         x: mapPinMainElement.offsetLeft - shift.x,
         y: mapPinMainElement.offsetTop - shift.y
       };
 
-      if (CoordsMoveMainPin.x >= MIN_X && CoordsMoveMainPin.x <= MAX_X) {
+      if (coordsMoveMainPin.x >= MAIN_PIN_MIN_X && coordsMoveMainPin.x <= MAIN_PIN_MAX_X) {
         mapPinMainElement.style.left = (mapPinMainElement.offsetLeft - shift.x) + `px`;
       }
 
-      if (CoordsMoveMainPin.y >= MIN_Y && CoordsMoveMainPin.y <= MAX_Y) {
+      if (coordsMoveMainPin.y >= MAIN_PIN_MIN_Y && coordsMoveMainPin.y <= MAIN_PIN_MAX_Y) {
         mapPinMainElement.style.top = (mapPinMainElement.offsetTop - shift.y) + `px`;
       }
 
-      window.form.setAddressPin(moveEvt); // функция из модуля form
+      window.form.setAddressPin(getAddressPin()); // функция из модуля form
     };
 
     const onMouseUp = (upEvt) => {
@@ -80,7 +82,7 @@
   });
 
   window.mainPin = {
-    mapPinMainElement: mapPinMainElement,
+    element: mapPinMainElement,
     getAddressPin: getAddressPin
   };
 

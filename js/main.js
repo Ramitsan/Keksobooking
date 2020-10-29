@@ -14,7 +14,7 @@
     window.map.enable();
     window.form.enable();
     window.form.setAddressPin(window.mainPin.getAddressPin());
-    window.backend.load(window.map.addPins, window.load.errorHandler);
+    window.backend.load(window.map.addPins, window.message.showError);
   };
 
   const clickLeftMouseButtonHandler = (evt) => {
@@ -29,7 +29,15 @@
     }
   };
 
-  window.mainPin.mapPinMainElement.addEventListener(`mousedown`, clickLeftMouseButtonHandler);
-  window.mainPin.mapPinMainElement.addEventListener(`keydown`, pressEnterHandler);
+  // отправка данных формы
+  window.form.element.addEventListener(`submit`, function (evt) {
+    evt.preventDefault();
+    if (window.form.element.checkValidity()) {
+      window.backend.save(new FormData(window.form.element), window.message.showSuccess, window.message.showError);
+    }
+  });
+
+  window.mainPin.element.addEventListener(`mousedown`, clickLeftMouseButtonHandler);
+  window.mainPin.element.addEventListener(`keydown`, pressEnterHandler);
 
 })();
