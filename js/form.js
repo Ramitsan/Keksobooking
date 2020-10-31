@@ -106,7 +106,7 @@
   adFormTimeElement.addEventListener('change', selectTimeHandler);
 
   window.form = {
-    adFormElement: adFormElement,
+    element: adFormElement,
     disable: disableForm,
     enable: enableForm,
     setAddressPin: setAddressPin

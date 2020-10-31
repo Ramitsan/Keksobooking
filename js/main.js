@@ -14,7 +14,7 @@
     window.map.enable();
     window.form.enable();
     window.form.setAddressPin(window.mainPin.getAddressPin());
-    window.map.addPins(window.data);
+    window.backend.load(window.map.addPins, window.message.showError);
   };
 
   const clickLeftMouseButtonHandler = (evt) => {
@@ -29,16 +29,15 @@
     }
   };
 
-  // let announcementElements = window.data;
+  // отправка данных формы
+  window.form.element.addEventListener(`submit`, function (evt) {
+    evt.preventDefault();
+    if (window.form.element.checkValidity()) {
+      window.backend.save(new FormData(window.form.element), window.message.showSuccess, window.message.showError);
+    }
+  });
 
-  // function showCard(announcement) {
-  //   window.map.map.insertBefore(window.card.createCard(announcement), window.map.mapFiltersContainer);
-  // }
-
-  // showCard(announcementElements[0]);
-
-
-  window.mainPin.mapPinMainElement.addEventListener(`mousedown`, clickLeftMouseButtonHandler);
-  window.mainPin.mapPinMainElement.addEventListener(`keydown`, pressEnterHandler);
+  window.mainPin.element.addEventListener(`mousedown`, clickLeftMouseButtonHandler);
+  window.mainPin.element.addEventListener(`keydown`, pressEnterHandler);
 
 })();

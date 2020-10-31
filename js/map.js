@@ -8,6 +8,7 @@
   const mapFiltersForm = document.querySelector(`.map__filters`);
   const mapFilterElements = mapFiltersForm.querySelectorAll(`.map__filter`);
   const mapFeaturesFieldset = mapFiltersForm.querySelector(`.map__features`);
+  const ANNOUNCEMENT_AMOUNT = 8;
 
   // управление активностью и неактивности карты
   const disableMap = () => {
@@ -45,7 +46,7 @@
   const renderPins = (аnnouncements) => {
     let fragment = document.createDocumentFragment();
     let pinItem;
-    for (let j = 0; j < аnnouncements.length; j++) {
+    for (let j = 0; j < ANNOUNCEMENT_AMOUNT; j++) {
       pinItem = window.pin.render(аnnouncements[j]);
       pinItem.addEventListener(`click`, function () {
         renderCard(window.card.create(аnnouncements[j]));
@@ -64,10 +65,9 @@
     map.insertBefore(cardItem, mapFiltersContainer);
   };
 
-
   window.map = {
+    ANNOUNCEMENT_AMOUNT: ANNOUNCEMENT_AMOUNT,
     map: map,
-    // mapFiltersContainer: mapFiltersContainer,
     disable: disableMap,
     enable: enableMap,
     addPins: addPins
