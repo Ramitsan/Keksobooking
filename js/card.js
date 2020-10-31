@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(function() {
   const card = document.querySelector(`#card`).content.querySelector(`.map__card`);
   const typesOfHousing = {
     flat: `Квартира`,
@@ -36,7 +36,7 @@
       const features = announcement.offer.features;
       featuresList.innerHTML = ``;
 
-      features.forEach(function (value) {
+      features.forEach(function(value) {
         const copyFeaturesItem = document.createElement(`li`);
 
         copyFeaturesItem.classList.add(`popup__feature`);
@@ -55,25 +55,29 @@
       const photos = announcement.offer.photos;
       photosList.innerHTML = ``;
 
-      photos.forEach(function (item) {
+      photos.forEach(function(item) {
         const copyPhotosItem = document.createElement(`img`);
 
         copyPhotosItem.classList.add(`popup__photo`);
         copyPhotosItem.style.width = `45px`;
         copyPhotosItem.style.height = `40px`;
         copyPhotosItem.src = item;
+
+        copyPhotosItem.addEventListener(`click`, function() {
+          window.bigPicture.open(copyPhotosItem);
+        })
         photosList.append(copyPhotosItem);
       });
     }
   };
 
   // добавляем закрытие карточки по клику на "крестик"
-  popup.querySelector(`.popup__close`).addEventListener(`click`, function () {
+  popup.querySelector(`.popup__close`).addEventListener(`click`, function() {
     popup.remove();
   });
 
   // добавляем закрытие карточки по клику на Esc
-  document.addEventListener(`keydown`, function (e) {
+  document.addEventListener(`keydown`, function(e) {
     if (window.util.isEscPress(e)) {
       popup.remove();
     }
