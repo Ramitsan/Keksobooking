@@ -21,7 +21,11 @@
       overlay.appendChild(imageElement);
     });
 
-    overlay.addEventListener(`click`, closeBigPicture);
+    overlay.addEventListener(`click`, function(evt) {
+      if (evt.target !== imageElement) {
+        closeBigPicture();
+      }
+    });
     buttonClose.addEventListener(`click`, closeBigPicture);
   };
 
