@@ -4,51 +4,43 @@
   let overlay;
   let buttonClose;
 
-  const openBigPicture = function(preview) {
-
+  const openBigPicture = (preview) => {
     const imageElement = document.createElement('img');
+
     imageElement.src = preview.src;
     imageElement.style.width = `auto`;
     imageElement.style.height = `auto`;
-
     imageElement.style.border = `10px solid #ffffff`;
 
     overlay = createOverlay();
     buttonClose = createButtonClose();
     document.body.appendChild(overlay);
     document.body.appendChild(buttonClose);
-    // overlay.appendChild(imageElement);
 
-    imageElement.onload = function() {
-      overlay.appendChild(imageElement)
-    };
+    imageElement.addEventListener(`load`, function() {
+      overlay.appendChild(imageElement);
+    });
 
-    overlay.addEventListener('click', closeBigPicture);
-    buttonClose.addEventListener('click', closeBigPicture);
+    overlay.addEventListener(`click`, closeBigPicture);
+    buttonClose.addEventListener(`click`, closeBigPicture);
   };
 
-  const closeBigPicture = function(e) {
-    if (e.target === overlay || e.target === buttonClose) {
-      overlay.remove();
-      buttonClose.remove();
-      overlay.removeEventListener(`click`, closeBigPicture);
-      buttonClose.removeEventListener(`click`, closeBigPicture);
-    }
+  const closeBigPicture = () => {
+    overlay.remove();
+    buttonClose.remove();
+    overlay.removeEventListener(`click`, closeBigPicture);
+    buttonClose.removeEventListener(`click`, closeBigPicture);
   };
 
-  //  работает, но закрывает и фото, и карточку объявления, а нужно только карточку
+  //  работает, но закрывает и фото, и карточку объявления, а нужно только фото
   window.addEventListener(`keydown`, function(e) {
-    if (window.util.isEscPress(e) && (overlay)) {
-      // e.stopPropagation();
-      overlay.remove();
-      buttonClose.remove();
-      overlay.removeEventListener(`click`, closeBigPicture);
-      buttonClose.removeEventListener(`click`, closeBigPicture);
+    if (window.util.isEscPress(e)) {
+      closeBigPicture();
     }
   });
 
   // создаем оверлей
-  const createOverlay = function() {
+  const createOverlay = () => {
     let overlayElement = document.createElement('div');
     overlayElement.style.position = `fixed`;
     overlayElement.style.backgroundColor = 'rgba(0,0,0,0.8)';
@@ -64,12 +56,12 @@
   }
 
   // создаем кнопку закрытия
-  const createButtonClose = function() {
+  const createButtonClose = () => {
     let buttonElement = document.createElement(`button`);
     buttonElement.style.position = `fixed`;
     buttonElement.style.backgroundColor = `transparent`;
-    buttonElement.style.right = `15%`;
-    buttonElement.style.top = `15%`;
+    buttonElement.style.right = 0;
+    buttonElement.style.top = 0;
     buttonElement.style.width = `55px`;
     buttonElement.style.height = `65px`;
     buttonElement.style.display = `block`;
@@ -78,10 +70,8 @@
     buttonElement.textContent = `×`;
     buttonElement.style.color = `#ffffff`;
     buttonElement.style.padding = `0`;
-    buttonElement.style.backgroundPosition = `center`;
-    buttonElement.style.backgroundRepeat = `no-repeat`;
     buttonElement.style.cursor = `pointer`;
-    buttonElement.style.zIndex = `100`;
+    buttonElement.style.zIndex = 100;
     return buttonElement;
   }
 

@@ -52,6 +52,7 @@
       popup.querySelector(`.popup__photos`).style.display = `none`;
     } else {
       const photosList = popup.querySelector(`.popup__photos`);
+      photosList.style.display = `block`;
       const photos = announcement.offer.photos;
       photosList.innerHTML = ``;
 
