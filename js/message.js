@@ -3,7 +3,7 @@
 (function() {
 
   const successPopup = document.querySelector(`#success`).content.querySelector(`.success`);
-  const errorPopup = document.querySelector(`#error`).content.querySelector(`.error`);
+  const errorPopup = document.querySelector(`#error`).content.querySelector(`.error`);;
 
 
   const success = successPopup.cloneNode(true);

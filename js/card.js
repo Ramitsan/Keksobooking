@@ -33,6 +33,7 @@
       popup.querySelector(`.popup__features`).style.display = `none`;
     } else {
       const featuresList = popup.querySelector(`.popup__features`);
+      featuresList.style.display = `block`;
       const features = announcement.offer.features;
       featuresList.innerHTML = ``;
 
