@@ -64,11 +64,18 @@
     map.insertBefore(cardItem, mapFiltersContainer);
   };
 
+  const removePins = () => {
+    mapPins.querySelectorAll(`.map__pin:not(.map__pin--main)`).forEach((announcement) => {
+      mapPins.removeChild(announcement);
+    });
+  }
+
   window.map = {
     map: map,
     disable: disableMap,
     enable: enableMap,
-    addPins: addPins
+    addPins: addPins,
+    removePins: removePins
   };
 
 })();

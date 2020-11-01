@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(function() {
 
   const successPopup = document.querySelector(`#success`).content.querySelector(`.success`);
   const errorPopup = document.querySelector(`#error`).content.querySelector(`.error`);
@@ -8,18 +8,19 @@
 
   const success = successPopup.cloneNode(true);
   const showSuccess = () => {
-    document.body.insertAdjacentElement(`afterbegin`, success);
+    // document.body.insertAdjacentElement(`afterbegin`, success);
+    document.querySelector('main').appendChild(success);
   };
 
   // закрытие окна успешной загрузки по ESC
-  document.addEventListener(`keydown`, function (e) {
+  document.addEventListener(`keydown`, function(e) {
     if (window.util.isEscPress(e)) {
       success.remove();
     }
   });
 
   // по клику на произвольной области
-  document.addEventListener(`click`, function (e) {
+  document.addEventListener(`click`, function(e) {
     if (e.target === success) {
       success.remove();
     }
@@ -41,28 +42,28 @@
     error.style.textAlign = `center`;
 
     error.querySelector(`.error__message`).textContent = errorMessage;
-    document.body.insertAdjacentElement(`afterbegin`, error);
+    // document.body.insertAdjacentElement(`afterbegin`, error);
+    document.querySelector('main').appendChild(error);
   };
 
   // закрытие окна об ошибке по клику
-  error.querySelector(`.error__button`).addEventListener(`click`, function () {
+  error.querySelector(`.error__button`).addEventListener(`click`, function() {
     error.remove();
   });
 
   // по ESC
-  document.addEventListener(`keydown`, function (e) {
+  document.addEventListener(`keydown`, function(e) {
     if (window.util.isEscPress(e)) {
       error.remove();
     }
   });
 
   // по клику на произвольной области
-  document.addEventListener(`click`, function (e) {
+  document.addEventListener(`click`, function(e) {
     if (e.target === error) {
       error.remove();
     }
   });
-
 
   window.message = {
     showSuccess: showSuccess,

@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(function() {
 
   const deactivatePage = () => {
     window.map.disable();
@@ -30,12 +30,24 @@
   };
 
   // отправка данных формы
-  window.form.element.addEventListener(`submit`, function (evt) {
+  window.form.element.addEventListener(`submit`, function(evt) {
     evt.preventDefault();
     if (window.form.element.checkValidity()) {
-      window.backend.save(new FormData(window.form.element), window.message.showSuccess, window.message.showError);
+      window.backend.save(new FormData(window.form.element), successHandler, errorHandler);
     }
   });
+
+  const successHandler = () => {
+    window.form.clear();
+    window.map.removePins();
+    deactivatePage();
+    window.message.showSuccess();
+  }
+
+  const errorHandler = () => {
+    window.message.showError();
+  }
+
 
   window.mainPin.element.addEventListener(`mousedown`, clickLeftMouseButtonHandler);
   window.mainPin.element.addEventListener(`keydown`, pressEnterHandler);

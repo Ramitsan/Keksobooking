@@ -4,6 +4,7 @@
   const adFormElement = document.querySelector(`.ad-form`);
   const adFormFieldsetElements = adFormElement.querySelectorAll(`.ad-form__element`);
   const addressInputElement = adFormElement.querySelector(`#address`);
+  const formResetButtonElement = adFormElement.querySelector('.ad-form__reset');
 
   const enableFormFieldsets = () => {
     window.util.enableElements(adFormFieldsetElements);
@@ -104,11 +105,23 @@
 
   adFormTimeElement.addEventListener('change', selectTimeHandler);
 
+
+  // функция очистки полей
+  const clearFormHandler = () => {
+    adFormElement.reset();
+  }
+
+  // обработчик кнопки очистки формы
+  formResetButtonElement.addEventListener('click', function() {
+    clearFormHandler();
+  })
+
   window.form = {
     element: adFormElement,
     disable: disableForm,
     enable: enableForm,
-    setAddressPin: setAddressPin
+    setAddressPin: setAddressPin,
+    clear: clearFormHandler
   };
 
 })();
