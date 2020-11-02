@@ -106,22 +106,13 @@
   adFormTimeElement.addEventListener('change', selectTimeHandler);
 
 
-  // функция очистки полей
-  const clearFormHandler = () => {
-    adFormElement.reset();
-  }
-
-  // обработчик кнопки очистки формы
-  formResetButtonElement.addEventListener('click', function() {
-    clearFormHandler();
-  })
 
   window.form = {
     element: adFormElement,
+    resetElement: formResetButtonElement,
     disable: disableForm,
     enable: enableForm,
-    setAddressPin: setAddressPin,
-    clear: clearFormHandler
+    setAddressPin: setAddressPin
   };
 
 })();

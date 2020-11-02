@@ -72,6 +72,7 @@
 
   window.map = {
     map: map,
+    mapFiltersForm: mapFiltersForm,
     disable: disableMap,
     enable: enableMap,
     addPins: addPins,

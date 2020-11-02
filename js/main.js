@@ -14,7 +14,7 @@
     window.map.enable();
     window.form.enable();
     window.form.setAddressPin(window.mainPin.getAddressPin());
-    window.backend.load(window.map.addPins, window.message.showError);
+    window.backend.load(window.map.addPins, errorHandler);
   };
 
   const clickLeftMouseButtonHandler = (evt) => {
@@ -37,11 +37,28 @@
     }
   });
 
-  const successHandler = () => {
-    window.form.clear();
+
+  // функция очистки полей формы
+  const clearFormHandler = () => {
+    window.form.element.reset();
+  }
+
+  // обработчик кнопки очистки формы
+  window.form.resetElement.addEventListener('click', function() {
+    clearFormHandler();
+    window.card.remove();
+    updatePage();
+  })
+
+  const updatePage = () => {
+    clearFormHandler();
     window.map.removePins();
     deactivatePage();
+  }
+
+  const successHandler = () => {
     window.message.showSuccess();
+    updatePage();
   }
 
   const errorHandler = () => {
