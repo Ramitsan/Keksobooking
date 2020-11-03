@@ -9,7 +9,7 @@
   const MAIN_PIN_MIN_Y = MAP_MIN_Y - MAIN_PIN_HEIGHT_ACTIVE;
   const MAIN_PIN_MAX_Y = MAP_MAX_Y - MAIN_PIN_HEIGHT_ACTIVE;
   const MAIN_PIN_MIN_X = -(MAIN_PIN_WIDTH / 2);
-  const MAIN_PIN_MAX_X = window.map.map.offsetWidth - (MAIN_PIN_WIDTH / 2);
+  const MAIN_PIN_MAX_X = window.map.element.offsetWidth - (MAIN_PIN_WIDTH / 2);
 
 
   // получаем адрес большого пина при неактивной и активной карте
@@ -18,7 +18,7 @@
     const mainPinPositionY = mapPinMainElement.offsetTop;
 
     let mainPinAddress = {};
-    if (window.map.map.classList.contains(`map--faded`)) {
+    if (window.map.element.classList.contains(`map--faded`)) {
       mainPinAddress = {
         x: Math.round(mainPinPositionX + MAIN_PIN_WIDTH / 2),
         y: Math.round(mainPinPositionY + MAIN_PIN_WIDTH / 2)

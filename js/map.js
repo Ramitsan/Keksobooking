@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
 
   const map = document.querySelector(`.map`);
   const mapPins = document.querySelector(`.map__pins`);
@@ -30,15 +30,11 @@
   const enableMapFilters = () => {
     mapFiltersForm.classList.remove(`ad-form--disabled`);
     showMapFilterElements();
-    showMapFeaturesFieldset();
+    mapFeaturesFieldset.disabled = false;
   };
 
   const showMapFilterElements = () => {
     window.util.enableElements(mapFilterElements);
-  };
-
-  const showMapFeaturesFieldset = () => {
-    mapFeaturesFieldset.disable = false;
   };
 
   // Заполнение DOM-элемента на основе массива
@@ -47,7 +43,7 @@
     let pinItem;
     for (let j = 0; j < аnnouncements.length; j++) {
       pinItem = window.pin.render(аnnouncements[j]);
-      pinItem.addEventListener(`click`, function() {
+      pinItem.addEventListener(`click`, function () {
         renderCard(window.card.create(аnnouncements[j]));
       });
       fragment.appendChild(pinItem);
@@ -68,10 +64,10 @@
     mapPins.querySelectorAll(`.map__pin:not(.map__pin--main)`).forEach((announcement) => {
       mapPins.removeChild(announcement);
     });
-  }
+  };
 
   window.map = {
-    map: map,
+    element: map,
     mapFiltersForm: mapFiltersForm,
     disable: disableMap,
     enable: enableMap,

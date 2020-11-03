@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
 
   const deactivatePage = () => {
     window.map.disable();
@@ -15,11 +15,11 @@
     window.form.enable();
     window.form.setAddressPin(window.mainPin.getAddressPin());
 
-    window.backend.load(function(data) {
-      let correctData = data.filter(function(item) {
+    window.backend.load(function (data) {
+      let correctData = data.filter(function (item) {
         return 'offer' in item;
       });
-      window.filters.setFilteredPins(correctData, function(filteredData) {
+      window.filters.setFilteredPins(correctData, function (filteredData) {
         window.map.removePins();
         window.card.remove();
         window.map.addPins(filteredData);
@@ -40,7 +40,7 @@
   };
 
   // отправка данных формы
-  window.form.element.addEventListener(`submit`, function(evt) {
+  window.form.element.addEventListener(`submit`, function (evt) {
     evt.preventDefault();
     if (window.form.element.checkValidity()) {
       window.backend.save(new FormData(window.form.element), successHandler, errorHandler);
@@ -48,9 +48,9 @@
   });
 
   // обработчик кнопки очистки формы
-  window.form.resetElement.addEventListener('click', function() {
+  window.form.resetElement.addEventListener('click', function () {
     updatePage();
-  })
+  });
 
   const updatePage = () => {
     window.form.clear();
@@ -58,16 +58,16 @@
     window.card.remove();
     window.map.removePins();
     deactivatePage();
-  }
+  };
 
   const successHandler = () => {
     window.message.showSuccess();
     updatePage();
-  }
+  };
 
   const errorHandler = () => {
     window.message.showError();
-  }
+  };
 
 
   window.mainPin.element.addEventListener(`mousedown`, clickLeftMouseButtonHandler);
