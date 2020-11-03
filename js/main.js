@@ -14,7 +14,17 @@
     window.map.enable();
     window.form.enable();
     window.form.setAddressPin(window.mainPin.getAddressPin());
-    window.backend.load(window.map.addPins, errorHandler);
+
+    window.backend.load(function(data) {
+      let correctData = data.filter(function(item) {
+        return 'offer' in item;
+      });
+      window.filters.setFilteredPins(correctData, function(filteredData) {
+        window.map.removePins();
+        window.card.remove();
+        window.map.addPins(filteredData);
+      });
+    }, errorHandler);
   };
 
   const clickLeftMouseButtonHandler = (evt) => {
@@ -37,21 +47,15 @@
     }
   });
 
-
-  // функция очистки полей формы
-  const clearFormHandler = () => {
-    window.form.element.reset();
-  }
-
   // обработчик кнопки очистки формы
   window.form.resetElement.addEventListener('click', function() {
-    clearFormHandler();
-    window.card.remove();
     updatePage();
   })
 
   const updatePage = () => {
-    clearFormHandler();
+    window.form.clear();
+    window.filters.clear();
+    window.card.remove();
     window.map.removePins();
     deactivatePage();
   }
