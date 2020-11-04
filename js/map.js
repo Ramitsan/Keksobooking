@@ -13,6 +13,7 @@
   const disableMap = () => {
     map.classList.add(`map--faded`);
     disableMapFilters();
+    window.mainPin.reset();
   };
 
   const enableMap = () => {

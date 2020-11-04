@@ -3,6 +3,9 @@
 (function () {
 
   const deactivatePage = () => {
+    window.filters.clear();
+    window.card.remove();
+    window.map.removePins();
     window.map.disable();
     window.form.disable();
     window.form.setAddressPin(window.mainPin.getAddressPin());
@@ -19,12 +22,14 @@
       let correctData = data.filter(function (item) {
         return 'offer' in item;
       });
-      window.filters.setFilteredPins(correctData, function (filteredData) {
-        window.map.removePins();
-        window.card.remove();
-        window.map.addPins(filteredData);
-      });
+      window.filters.setFilteredPins(correctData, addFilteredPins);
     }, errorHandler);
+  };
+
+  const addFilteredPins = (filteredData) => {
+    window.map.removePins();
+    window.card.remove();
+    window.map.addPins(filteredData);
   };
 
   const clickLeftMouseButtonHandler = (evt) => {
@@ -49,20 +54,12 @@
 
   // обработчик кнопки очистки формы
   window.form.resetElement.addEventListener('click', function () {
-    updatePage();
-  });
-
-  const updatePage = () => {
-    window.form.clear();
-    window.filters.clear();
-    window.card.remove();
-    window.map.removePins();
     deactivatePage();
-  };
+  });
 
   const successHandler = () => {
     window.message.showSuccess();
-    updatePage();
+    deactivatePage();
   };
 
   const errorHandler = () => {

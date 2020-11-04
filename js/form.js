@@ -12,12 +12,18 @@
 
   const disableForm = () => {
     adFormElement.classList.add(`ad-form--disabled`);
+    clearFormHandler();
     window.util.disableElements(adFormFieldsetElements);
   };
 
   const enableForm = () => {
     adFormElement.classList.remove(`ad-form--disabled`);
     enableFormFieldsets();
+  };
+
+  // функция очистки полей формы
+  const clearFormHandler = () => {
+    adFormElement.reset();
   };
 
   const setAddressPin = (pinCoordinates) => {
@@ -105,19 +111,12 @@
 
   adFormTimeElement.addEventListener('change', selectTimeHandler);
 
-  // функция очистки полей формы
-  const clearFormHandler = () => {
-    adFormElement.reset();
-  };
-
-
   window.form = {
     element: adFormElement,
     resetElement: formResetButtonElement,
     disable: disableForm,
     enable: enableForm,
-    setAddressPin: setAddressPin,
-    clear: clearFormHandler
+    setAddressPin: setAddressPin
   };
 
 })();

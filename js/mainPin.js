@@ -11,6 +11,9 @@
   const MAIN_PIN_MIN_X = -(MAIN_PIN_WIDTH / 2);
   const MAIN_PIN_MAX_X = window.map.element.offsetWidth - (MAIN_PIN_WIDTH / 2);
 
+  const mainPinStartLeft = mapPinMainElement.style.left;
+  const mainPinStartTop = mapPinMainElement.style.top;
+
 
   // получаем адрес большого пина при неактивной и активной карте
   const getAddressPin = () => {
@@ -67,7 +70,7 @@
         mapPinMainElement.style.top = (mapPinMainElement.offsetTop - shift.y) + `px`;
       }
 
-      window.form.setAddressPin(getAddressPin()); // функция из модуля form
+      window.form.setAddressPin(getAddressPin());
     };
 
     const onMouseUp = (upEvt) => {
@@ -81,9 +84,15 @@
     document.addEventListener(`mouseup`, onMouseUp);
   });
 
+  const resetMainPin = () => {
+    mapPinMainElement.style.left = mainPinStartLeft;
+    mapPinMainElement.style.top = mainPinStartTop;
+  };
+
   window.mainPin = {
     element: mapPinMainElement,
-    getAddressPin: getAddressPin
+    getAddressPin: getAddressPin,
+    reset: resetMainPin
   };
 
 })();
