@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(function() {
   const PIN_WIDTH = 40;
   const PIN_HEIGHT = 44;
   const POINTER_PIN_HEIGHT = 5;
@@ -19,10 +19,20 @@
     clonedElementImg.src = announcement.author.avatar;
     clonedElementImg.alt = announcement.offer.title;
 
+    // добавляем класс активного пина при клике
+    clonedElement.addEventListener(`click`, function() {
+      let activePin = document.querySelector(`.map__pin--active`);
+      if (activePin) {
+        activePin.classList.remove(`map__pin--active`);
+      }
+      clonedElement.classList.add(`map__pin--active`);
+    });
+
     return clonedElement;
   };
 
   window.pin = {
+    templatePin: templatePin,
     render: renderPin
   };
 

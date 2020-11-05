@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+(function() {
 
   const map = document.querySelector(`.map`);
   const mapPins = document.querySelector(`.map__pins`);
@@ -42,9 +42,12 @@
   const renderPins = (аnnouncements) => {
     let fragment = document.createDocumentFragment();
     let pinItem;
+
     for (let j = 0; j < аnnouncements.length; j++) {
       pinItem = window.pin.render(аnnouncements[j]);
-      pinItem.addEventListener(`click`, function () {
+
+
+      pinItem.addEventListener(`click`, function() {
         renderCard(window.card.create(аnnouncements[j]));
       });
       fragment.appendChild(pinItem);
@@ -67,13 +70,22 @@
     });
   };
 
+  // удаляем активный пин
+  const removeActivePin = function() {
+    let activePin = document.querySelector(`.map__pin--active`);
+    if (activePin) {
+      activePin.classList.remove(`map__pin--active`);
+    }
+  };
+
   window.map = {
     element: map,
     mapFiltersForm: mapFiltersForm,
     disable: disableMap,
     enable: enableMap,
     addPins: addPins,
-    removePins: removePins
+    removePins: removePins,
+    removeActivePin: removeActivePin
   };
 
 })();
