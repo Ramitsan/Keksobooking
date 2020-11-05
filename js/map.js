@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
 
   const map = document.querySelector(`.map`);
   const mapPins = document.querySelector(`.map__pins`);
@@ -12,6 +12,8 @@
   // управление активностью и неактивности карты
   const disableMap = () => {
     map.classList.add(`map--faded`);
+    window.card.remove();
+    window.map.removePins();
     disableMapFilters();
     window.mainPin.reset();
   };
@@ -46,8 +48,7 @@
     for (let j = 0; j < аnnouncements.length; j++) {
       pinItem = window.pin.render(аnnouncements[j]);
 
-
-      pinItem.addEventListener(`click`, function() {
+      pinItem.addEventListener(`click`, function () {
         renderCard(window.card.create(аnnouncements[j]));
       });
       fragment.appendChild(pinItem);
@@ -70,8 +71,8 @@
     });
   };
 
-  // удаляем активный пин
-  const removeActivePin = function() {
+  // удаляем активный пин, если он есть
+  const removeActivePin = function () {
     let activePin = document.querySelector(`.map__pin--active`);
     if (activePin) {
       activePin.classList.remove(`map__pin--active`);

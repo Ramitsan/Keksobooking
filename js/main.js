@@ -4,11 +4,9 @@
 
   const deactivatePage = () => {
     window.filters.clear();
-    window.card.remove();
-    window.map.removePins();
     window.map.disable();
     window.form.disable();
-    window.form.setAddressPin(window.mainPin.getAddressPin());
+    window.form.setAddressPin(window.mainPin.getAddressPin()); // нужна ли здесь эта функция?
   };
 
   deactivatePage();
