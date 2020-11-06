@@ -23,6 +23,7 @@ const enableForm = () => {
 // функция очистки полей формы
 const clearFormHandler = () => {
   adFormElement.reset();
+  window.chooserImage.remove();
 };
 
 const setAddressPin = (pinCoordinates) => {
