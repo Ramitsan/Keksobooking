@@ -8,12 +8,14 @@
   const mapFiltersForm = document.querySelector(`.map__filters`);
   const mapFilterElements = mapFiltersForm.querySelectorAll(`.map__filter`);
   const mapFeaturesFieldset = mapFiltersForm.querySelector(`.map__features`);
-  const ANNOUNCEMENT_AMOUNT = 8;
 
   // управление активностью и неактивности карты
   const disableMap = () => {
     map.classList.add(`map--faded`);
+    window.card.remove();
+    window.map.removePins();
     disableMapFilters();
+    window.mainPin.reset();
   };
 
   const enableMap = () => {
@@ -31,23 +33,21 @@
   const enableMapFilters = () => {
     mapFiltersForm.classList.remove(`ad-form--disabled`);
     showMapFilterElements();
-    showMapFeaturesFieldset();
+    mapFeaturesFieldset.disabled = false;
   };
 
   const showMapFilterElements = () => {
     window.util.enableElements(mapFilterElements);
   };
 
-  const showMapFeaturesFieldset = () => {
-    mapFeaturesFieldset.disable = false;
-  };
-
   // Заполнение DOM-элемента на основе массива
   const renderPins = (аnnouncements) => {
     let fragment = document.createDocumentFragment();
     let pinItem;
-    for (let j = 0; j < ANNOUNCEMENT_AMOUNT; j++) {
+
+    for (let j = 0; j < аnnouncements.length; j++) {
       pinItem = window.pin.render(аnnouncements[j]);
+
       pinItem.addEventListener(`click`, function () {
         renderCard(window.card.create(аnnouncements[j]));
       });
@@ -65,12 +65,28 @@
     map.insertBefore(cardItem, mapFiltersContainer);
   };
 
+  const removePins = () => {
+    mapPins.querySelectorAll(`.map__pin:not(.map__pin--main)`).forEach((announcement) => {
+      mapPins.removeChild(announcement);
+    });
+  };
+
+  // удаляем активный пин, если он есть
+  const removeActivePin = function () {
+    let activePin = document.querySelector(`.map__pin--active`);
+    if (activePin) {
+      activePin.classList.remove(`map__pin--active`);
+    }
+  };
+
   window.map = {
-    ANNOUNCEMENT_AMOUNT: ANNOUNCEMENT_AMOUNT,
-    map: map,
+    element: map,
+    mapFiltersForm: mapFiltersForm,
     disable: disableMap,
     enable: enableMap,
-    addPins: addPins
+    addPins: addPins,
+    removePins: removePins,
+    removeActivePin: removeActivePin
   };
 
 })();

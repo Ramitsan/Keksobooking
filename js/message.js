@@ -8,7 +8,8 @@
 
   const success = successPopup.cloneNode(true);
   const showSuccess = () => {
-    document.body.insertAdjacentElement(`afterbegin`, success);
+    // document.body.insertAdjacentElement(`afterbegin`, success);
+    document.querySelector('main').appendChild(success);
   };
 
   // закрытие окна успешной загрузки по ESC
@@ -41,7 +42,8 @@
     error.style.textAlign = `center`;
 
     error.querySelector(`.error__message`).textContent = errorMessage;
-    document.body.insertAdjacentElement(`afterbegin`, error);
+    // document.body.insertAdjacentElement(`afterbegin`, error);
+    document.querySelector('main').appendChild(error);
   };
 
   // закрытие окна об ошибке по клику
@@ -62,7 +64,6 @@
       error.remove();
     }
   });
-
 
   window.message = {
     showSuccess: showSuccess,

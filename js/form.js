@@ -4,6 +4,7 @@
   const adFormElement = document.querySelector(`.ad-form`);
   const adFormFieldsetElements = adFormElement.querySelectorAll(`.ad-form__element`);
   const addressInputElement = adFormElement.querySelector(`#address`);
+  const formResetButtonElement = adFormElement.querySelector('.ad-form__reset');
 
   const enableFormFieldsets = () => {
     window.util.enableElements(adFormFieldsetElements);
@@ -11,12 +12,18 @@
 
   const disableForm = () => {
     adFormElement.classList.add(`ad-form--disabled`);
+    clearFormHandler();
     window.util.disableElements(adFormFieldsetElements);
   };
 
   const enableForm = () => {
     adFormElement.classList.remove(`ad-form--disabled`);
     enableFormFieldsets();
+  };
+
+  // функция очистки полей формы
+  const clearFormHandler = () => {
+    adFormElement.reset();
   };
 
   const setAddressPin = (pinCoordinates) => {
@@ -44,7 +51,6 @@
       roomsQuantityElement.setCustomValidity(``);
     }
   };
-
 
   adFormSubmitButton.addEventListener(`click`, selectRoomsHandler);
 
@@ -107,6 +113,7 @@
 
   window.form = {
     element: adFormElement,
+    resetElement: formResetButtonElement,
     disable: disableForm,
     enable: enableForm,
     setAddressPin: setAddressPin

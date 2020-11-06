@@ -33,6 +33,7 @@
       popup.querySelector(`.popup__features`).style.display = `none`;
     } else {
       const featuresList = popup.querySelector(`.popup__features`);
+      featuresList.style.display = `block`;
       const features = announcement.offer.features;
       featuresList.innerHTML = ``;
 
@@ -52,6 +53,7 @@
       popup.querySelector(`.popup__photos`).style.display = `none`;
     } else {
       const photosList = popup.querySelector(`.popup__photos`);
+      photosList.style.display = `block`;
       const photos = announcement.offer.photos;
       photosList.innerHTML = ``;
 
@@ -62,6 +64,10 @@
         copyPhotosItem.style.width = `45px`;
         copyPhotosItem.style.height = `40px`;
         copyPhotosItem.src = item;
+
+        copyPhotosItem.addEventListener(`click`, function () {
+          window.bigPicture.open(copyPhotosItem);
+        });
         photosList.append(copyPhotosItem);
       });
     }
@@ -70,17 +76,19 @@
   // добавляем закрытие карточки по клику на "крестик"
   popup.querySelector(`.popup__close`).addEventListener(`click`, function () {
     popup.remove();
+    window.map.removeActivePin();
   });
 
   // добавляем закрытие карточки по клику на Esc
   document.addEventListener(`keydown`, function (e) {
     if (window.util.isEscPress(e)) {
       popup.remove();
+      window.map.removeActivePin();
     }
   });
 
   const removeCard = () => {
-    const mapCardElement = window.map.map.querySelector(`.map__card`);
+    const mapCardElement = window.map.element.querySelector(`.map__card`);
     if (mapCardElement) {
       mapCardElement.remove();
     }
