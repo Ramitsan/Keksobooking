@@ -16,11 +16,11 @@ const openBigPicture = (preview) => {
   document.body.appendChild(overlay);
   document.body.appendChild(buttonClose);
 
-  imageElement.addEventListener(`load`, function () {
+  imageElement.addEventListener(`load`, () => {
     overlay.appendChild(imageElement);
   });
 
-  overlay.addEventListener(`click`, function (evt) {
+  overlay.addEventListener(`click`, (evt) => {
     if (evt.target !== imageElement) {
       closeBigPicture();
     }
@@ -36,7 +36,7 @@ const closeBigPicture = () => {
 };
 
 //  работает, но закрывает и фото, и карточку объявления, а нужно только фото
-window.addEventListener(`keydown`, function (e) {
+window.addEventListener(`keydown`, (e) => {
   if (window.util.isEscPress(e)) {
     closeBigPicture();
   }

@@ -4,18 +4,16 @@ const deactivatePage = () => {
   window.filters.clear();
   window.map.disable();
   window.form.disable();
-  window.form.setAddressPin(window.mainPin.getAddressPin()); // нужна ли здесь эта функция?
+  window.form.setAddress(window.mainPin.getAddress());
 };
-
-deactivatePage();
 
 const activatePage = () => {
   window.map.enable();
   window.form.enable();
-  window.form.setAddressPin(window.mainPin.getAddressPin());
+  window.form.setAddress(window.mainPin.getAddress());
 
-  window.backend.load(function (data) {
-    let correctData = data.filter(function (item) {
+  window.backend.load((data) => {
+    let correctData = data.filter((item) => {
       return 'offer' in item;
     });
     window.filters.setFilteredPins(correctData, addFilteredPins);
@@ -41,7 +39,7 @@ const pressEnterHandler = (e) => {
 };
 
 // отправка данных формы
-window.form.element.addEventListener(`submit`, function (evt) {
+window.form.element.addEventListener(`submit`, (evt) => {
   evt.preventDefault();
   if (window.form.element.checkValidity()) {
     window.backend.save(new FormData(window.form.element), successHandler, errorHandler);
@@ -49,7 +47,7 @@ window.form.element.addEventListener(`submit`, function (evt) {
 });
 
 // обработчик кнопки очистки формы
-window.form.resetElement.addEventListener('click', function () {
+window.form.resetElement.addEventListener('click', () => {
   deactivatePage();
 });
 
@@ -65,3 +63,5 @@ const errorHandler = () => {
 
 window.mainPin.element.addEventListener(`mousedown`, clickLeftMouseButtonHandler);
 window.mainPin.element.addEventListener(`keydown`, pressEnterHandler);
+
+deactivatePage();

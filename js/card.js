@@ -8,9 +8,15 @@ const typesOfHousing = {
   palace: `Дворец`
 };
 
-const popup = card.cloneNode(true);
+const documentEscapePressHandler = (e) => {
+  if (window.util.isEscPress(e)) {
+    removeCard();
+  }
+};
 
-function createCard(announcement) {
+const createCard = (announcement) => {
+  const popup = card.cloneNode(true);
+
   popup.querySelector(`.popup__title`).textContent = announcement.offer.title;
   popup.querySelector(`.popup__text--address`).textContent = announcement.offer.address;
   popup.querySelector(`.popup__text--price`).textContent = `${announcement.offer.price}₽/ночь`;
@@ -20,14 +26,21 @@ function createCard(announcement) {
   popup.querySelector(`.popup__description`).textContent = announcement.offer.description;
   popup.querySelector(`.popup__avatar`).src = announcement.author.avatar;
 
-  createFeaturesBlock(announcement);
-  createPhotosBlock(announcement);
+  createFeaturesBlock(popup, announcement);
+  createPhotosBlock(popup, announcement);
+
+  popup.querySelector(`.popup__close`).addEventListener(`click`, () => {
+    removeCard();
+  });
+
+  // добавляем закрытие карточки по клику на Esc
+  document.addEventListener(`keydown`, documentEscapePressHandler);
 
   return popup;
-}
+};
 
 // Добавляем блок с удобствами
-const createFeaturesBlock = (announcement) => {
+const createFeaturesBlock = (popup, announcement) => {
   if (announcement.offer.features.length === 0) {
     popup.querySelector(`.popup__features`).style.display = `none`;
   } else {
@@ -36,7 +49,7 @@ const createFeaturesBlock = (announcement) => {
     const features = announcement.offer.features;
     featuresList.innerHTML = ``;
 
-    features.forEach(function (value) {
+    features.forEach((value) => {
       const copyFeaturesItem = document.createElement(`li`);
 
       copyFeaturesItem.classList.add(`popup__feature`);
@@ -47,7 +60,7 @@ const createFeaturesBlock = (announcement) => {
 };
 
 //  Добавляем блок с фотографиями
-const createPhotosBlock = (announcement) => {
+const createPhotosBlock = (popup, announcement) => {
   if (announcement.offer.photos.length === 0) {
     popup.querySelector(`.popup__photos`).style.display = `none`;
   } else {
@@ -56,7 +69,7 @@ const createPhotosBlock = (announcement) => {
     const photos = announcement.offer.photos;
     photosList.innerHTML = ``;
 
-    photos.forEach(function (item) {
+    photos.forEach((item) => {
       const copyPhotosItem = document.createElement(`img`);
 
       copyPhotosItem.classList.add(`popup__photo`);
@@ -64,7 +77,7 @@ const createPhotosBlock = (announcement) => {
       copyPhotosItem.style.height = `40px`;
       copyPhotosItem.src = item;
 
-      copyPhotosItem.addEventListener(`click`, function () {
+      copyPhotosItem.addEventListener(`click`, () => {
         window.bigPicture.open(copyPhotosItem);
       });
       photosList.append(copyPhotosItem);
@@ -73,23 +86,12 @@ const createPhotosBlock = (announcement) => {
 };
 
 // добавляем закрытие карточки по клику на "крестик"
-popup.querySelector(`.popup__close`).addEventListener(`click`, function () {
-  popup.remove();
-  window.map.removeActivePin();
-});
-
-// добавляем закрытие карточки по клику на Esc
-document.addEventListener(`keydown`, function (e) {
-  if (window.util.isEscPress(e)) {
-    popup.remove();
-    window.map.removeActivePin();
-  }
-});
-
 const removeCard = () => {
   const mapCardElement = window.map.element.querySelector(`.map__card`);
   if (mapCardElement) {
+    window.map.removeActivePin();
     mapCardElement.remove();
+    document.removeEventListener(`keydown`, documentEscapePressHandler);
   }
 };
 

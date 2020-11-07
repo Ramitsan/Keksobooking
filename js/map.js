@@ -46,7 +46,7 @@ const renderPins = (аnnouncements) => {
   for (let j = 0; j < аnnouncements.length; j++) {
     pinItem = window.pin.render(аnnouncements[j]);
 
-    pinItem.addEventListener(`click`, function () {
+    pinItem.addEventListener(`click`, () => {
       renderCard(window.card.create(аnnouncements[j]));
     });
     fragment.appendChild(pinItem);
@@ -70,7 +70,7 @@ const removePins = () => {
 };
 
 // удаляем активный пин, если он есть
-const removeActivePin = function () {
+const removeActivePin = () => {
   let activePin = document.querySelector(`.map__pin--active`);
   if (activePin) {
     activePin.classList.remove(`map__pin--active`);

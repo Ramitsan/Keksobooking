@@ -55,9 +55,9 @@ const selectRoomsHandler = () => {
 adFormSubmitButton.addEventListener(`click`, selectRoomsHandler);
 
 // проверка заголовка объявления
-const titleInputElement = adFormElement.querySelector(`#title`);
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
+const titleInputElement = adFormElement.querySelector(`#title`);
 
 const checkTitleHandler = () => {
   const titleValueLength = titleInputElement.value.length;
@@ -116,5 +116,5 @@ window.form = {
   resetElement: formResetButtonElement,
   disable: disableForm,
   enable: enableForm,
-  setAddressPin: setAddressPin
+  setAddress: setAddressPin
 };

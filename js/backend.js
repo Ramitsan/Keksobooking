@@ -15,7 +15,7 @@ const serverRequest = (URL, method, data, onLoad, onError) => {
   xhr.timeout = REQUEST_TIMEOUT;
   xhr.open(method, URL);
 
-  xhr.addEventListener(`load`, function () {
+  xhr.addEventListener(`load`, () => {
     switch (xhr.status) {
       case REQUEST_STATUS_OK:
         onLoad(xhr.response);
@@ -34,11 +34,11 @@ const serverRequest = (URL, method, data, onLoad, onError) => {
     }
   });
 
-  xhr.addEventListener(`error`, function () {
+  xhr.addEventListener(`error`, () => {
     onError('Произошла ошибка соединения');
   });
 
-  xhr.addEventListener(`timeout`, function () {
+  xhr.addEventListener(`timeout`, () => {
     onError(`Запрос не успел выполниться за ` + xhr.timeout + `мс`);
   });
 

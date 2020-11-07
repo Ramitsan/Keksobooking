@@ -1,6 +1,5 @@
 'use strict';
 
-const mapPinMainElement = document.querySelector(`.map__pin--main`);
 const MAIN_PIN_WIDTH = 65;
 const MAIN_PIN_HEIGHT_ACTIVE = 85; // высота с учетом "хвостика" 65 + 18;
 const MAP_MIN_Y = 130;
@@ -10,6 +9,7 @@ const MAIN_PIN_MAX_Y = MAP_MAX_Y - MAIN_PIN_HEIGHT_ACTIVE;
 const MAIN_PIN_MIN_X = -(MAIN_PIN_WIDTH / 2);
 const MAIN_PIN_MAX_X = window.map.element.offsetWidth - (MAIN_PIN_WIDTH / 2);
 
+const mapPinMainElement = document.querySelector(`.map__pin--main`);
 const mainPinStartLeft = mapPinMainElement.style.left;
 const mainPinStartTop = mapPinMainElement.style.top;
 
@@ -90,6 +90,6 @@ const resetMainPin = () => {
 
 window.mainPin = {
   element: mapPinMainElement,
-  getAddressPin: getAddressPin,
+  getAddress: getAddressPin,
   reset: resetMainPin
 };

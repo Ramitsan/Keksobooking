@@ -1,13 +1,13 @@
 'use strict';
 
+const PIN_MAX_COUNT = 5;
+const defaultOptionValue = `any`;
+
 const mapFiltersForm = document.querySelector(`.map__filters`);
 const filterHouseTypeElement = mapFiltersForm.querySelector(`#housing-type`);
 const filterHousePriceElement = mapFiltersForm.querySelector(`#housing-price`);
 const filterHouseRoomsElement = mapFiltersForm.querySelector(`#housing-rooms`);
 const filterHouseGuestsElement = mapFiltersForm.querySelector(`#housing-guests`);
-
-const PIN_MAX_COUNT = 5;
-const defaultOptionValue = `any`;
 
 // фильтр количества отрисованных пинов на карте
 const filterByPinsCount = (arr) => {
@@ -42,7 +42,7 @@ const filterByFeatures = (features) => {
 
 // фильтрация объявлений по всем фильтрам
 const filterAnnouncements = (аnnouncements) => {
-  return filterByPinsCount(аnnouncements.filter(function (аnnouncement) {
+  return filterByPinsCount(аnnouncements.filter((аnnouncement) => {
     return filterByHouseType(аnnouncement) &&
       filterByHousePrice(аnnouncement) &&
       filterByNumberOfRooms(аnnouncement) &&
@@ -53,10 +53,10 @@ const filterAnnouncements = (аnnouncements) => {
 
 // заполнение карты пинами в соответсвии с фильтрами
 const setFilteredPins = (data, callback) => {
-  let renderingWidthDebounce = window.debounce(function () {
+  let renderingWidthDebounce = window.debounce(() => {
     callback(filterAnnouncements(data));
   });
-  mapFiltersForm.addEventListener('change', function () {
+  mapFiltersForm.addEventListener('change', () => {
     renderingWidthDebounce();
   });
   callback(filterAnnouncements(data));

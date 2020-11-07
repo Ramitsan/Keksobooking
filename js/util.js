@@ -1,7 +1,7 @@
 'use strict';
 
-var ESC_KEYCODE = 27;
-var ENTER_KEYCODE = 13;
+const ESC_KEYCODE = 27;
+const ENTER_KEYCODE = 13;
 
 window.util = {
   ESC_KEYCODE: ESC_KEYCODE,
@@ -16,13 +16,13 @@ window.util = {
   },
 
   disableElements: function (items) {
-    items.forEach(function (item) {
+    items.forEach((item) => {
       item.disabled = true;
     });
   },
 
   enableElements: function (items) {
-    items.forEach(function (item) {
+    items.forEach((item) => {
       item.disabled = false;
     });
   }

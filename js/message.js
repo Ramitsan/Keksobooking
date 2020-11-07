@@ -11,14 +11,14 @@ const showSuccess = () => {
 };
 
 // закрытие окна успешной загрузки по ESC
-document.addEventListener(`keydown`, function (e) {
+document.addEventListener(`keydown`, (e) => {
   if (window.util.isEscPress(e)) {
     success.remove();
   }
 });
 
 // по клику на произвольной области
-document.addEventListener(`click`, function (e) {
+document.addEventListener(`click`, (e) => {
   if (e.target === success) {
     success.remove();
   }
@@ -45,19 +45,19 @@ const showError = (errorMessage) => {
 };
 
 // закрытие окна об ошибке по клику
-error.querySelector(`.error__button`).addEventListener(`click`, function () {
+error.querySelector(`.error__button`).addEventListener(`click`, () => {
   error.remove();
 });
 
 // по ESC
-document.addEventListener(`keydown`, function (e) {
+document.addEventListener(`keydown`, (e) => {
   if (window.util.isEscPress(e)) {
     error.remove();
   }
 });
 
 // по клику на произвольной области
-document.addEventListener(`click`, function (e) {
+document.addEventListener(`click`, (e) => {
   if (e.target === error) {
     error.remove();
   }

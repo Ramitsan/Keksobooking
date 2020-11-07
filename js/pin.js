@@ -18,7 +18,7 @@ const renderPin = (announcement) => {
   clonedElementImg.alt = announcement.offer.title;
 
   // добавляем класс активного пина при клике
-  clonedElement.addEventListener(`click`, function () {
+  clonedElement.addEventListener(`click`, () => {
     let activePin = document.querySelector(`.map__pin--active`);
     if (activePin) {
       activePin.classList.remove(`map__pin--active`);
@@ -30,6 +30,5 @@ const renderPin = (announcement) => {
 };
 
 window.pin = {
-  templatePin: templatePin,
   render: renderPin
 };
