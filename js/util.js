@@ -7,21 +7,21 @@ window.util = {
   ESC_KEYCODE: ESC_KEYCODE,
   ENTER_KEYCODE: ENTER_KEYCODE,
 
-  isEscPress: function (evt) {
+  isEscPress: (evt) => {
     return evt.keyCode === window.util.ESC_KEYCODE;
   },
 
-  isEnterPress: function (evt) {
+  isEnterPress: (evt) => {
     return evt.keyCode === window.util.ENTER_KEYCODE;
   },
 
-  disableElements: function (items) {
+  disableElements: (items) => {
     items.forEach((item) => {
       item.disabled = true;
     });
   },
 
-  enableElements: function (items) {
+  enableElements: (items) => {
     items.forEach((item) => {
       item.disabled = false;
     });

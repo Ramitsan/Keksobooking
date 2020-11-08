@@ -26,22 +26,12 @@ document.addEventListener(`click`, (e) => {
 
 // обработчик ошибки
 const error = errorPopup.cloneNode(true);
-const showError = (errorMessage) => {
-  error.style = `text-align: center`;
-  error.style.display = `block`;
-  error.style.position = `fixed`;
-  error.style.zIndex = `100`;
-  error.style.width = `100%`;
-  error.style.backgroundColor = `rgba(255, 86, 53, 0.8)`;
-  error.style.color = `#fff`;
-  error.style.fontSize = `25px`;
-  error.style.fontWeight = `bold`;
-  error.style.lineHeight = `65px`;
-  error.style.textAlign = `center`;
 
-  error.querySelector(`.error__message`).textContent = errorMessage;
-  // document.body.insertAdjacentElement(`afterbegin`, error);
-  document.querySelector('main').appendChild(error);
+const showError = (textMessage) => {
+  error.style.backgroundColor = `rgba(255, 86, 53, 0.7)`;
+  document.querySelector(`main`).appendChild(error);
+
+  error.querySelector(`.error__message`).textContent = textMessage;
 };
 
 // закрытие окна об ошибке по клику

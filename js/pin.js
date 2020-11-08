@@ -17,18 +17,17 @@ const renderPin = (announcement) => {
   clonedElementImg.src = announcement.author.avatar;
   clonedElementImg.alt = announcement.offer.title;
 
-  // добавляем класс активного пина при клике
-  clonedElement.addEventListener(`click`, () => {
-    let activePin = document.querySelector(`.map__pin--active`);
-    if (activePin) {
-      activePin.classList.remove(`map__pin--active`);
-    }
-    clonedElement.classList.add(`map__pin--active`);
-  });
-
   return clonedElement;
 };
 
+const removeActivePin = () => {
+  let activePin = document.querySelector(`.map__pin--active`);
+  if (activePin) {
+    activePin.classList.remove(`map__pin--active`);
+  }
+};
+
 window.pin = {
-  render: renderPin
+  render: renderPin,
+  removeActivePin: removeActivePin
 };

@@ -4,7 +4,7 @@ let overlay;
 let buttonClose;
 
 const openBigPicture = (preview) => {
-  const imageElement = document.createElement('img');
+  const imageElement = document.createElement(`img`);
 
   imageElement.src = preview.src;
   imageElement.style.width = `auto`;
@@ -26,6 +26,7 @@ const openBigPicture = (preview) => {
     }
   });
   buttonClose.addEventListener(`click`, closeBigPicture);
+  document.addEventListener(`keydown`, closeEscapePressHandler);
 };
 
 const closeBigPicture = () => {
@@ -36,11 +37,11 @@ const closeBigPicture = () => {
 };
 
 //  работает, но закрывает и фото, и карточку объявления, а нужно только фото
-window.addEventListener(`keydown`, (e) => {
+const closeEscapePressHandler = (e) => {
   if (window.util.isEscPress(e)) {
     closeBigPicture();
   }
-});
+};
 
 // создаем оверлей
 const createOverlay = () => {

@@ -26,8 +26,8 @@ const clearFormHandler = () => {
   window.chooserImage.remove();
 };
 
-const setAddressPin = (pinCoordinates) => {
-  addressInputElement.value = `${pinCoordinates.x}, ${pinCoordinates.y}`;
+const setAddressPin = (coordinates) => {
+  addressInputElement.value = `${coordinates.x}, ${coordinates.y}`;
 };
 
 // установка соответствия количества комнат и количества гостей

@@ -47,11 +47,11 @@ const serverRequest = (URL, method, data, onLoad, onError) => {
 };
 
 window.backend = {
-  save: function (data, onLoad, onError) {
+  save: (data, onLoad, onError) => {
     serverRequest(URL_SAVE, `POST`, data, onLoad, onError);
   },
 
-  load: function (onLoad, onError) {
+  load: (onLoad, onError) => {
     serverRequest(URL_LOAD, `GET`, null, onLoad, onError);
   }
 };

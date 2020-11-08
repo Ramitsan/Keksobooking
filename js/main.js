@@ -56,8 +56,8 @@ const successHandler = () => {
   deactivatePage();
 };
 
-const errorHandler = () => {
-  window.message.showError();
+const errorHandler = (textMessage) => {
+  window.message.showError(textMessage);
 };
 
 

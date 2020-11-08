@@ -39,18 +39,21 @@ const showMapFilterElements = () => {
 };
 
 // Заполнение DOM-элемента на основе массива
-const renderPins = (аnnouncements) => {
+const renderPins = (announcements) => {
   let fragment = document.createDocumentFragment();
-  let pinItem;
 
-  for (let j = 0; j < аnnouncements.length; j++) {
-    pinItem = window.pin.render(аnnouncements[j]);
+  announcements.forEach((announcement) => {
+    let pinItem = window.pin.render(announcement);
 
     pinItem.addEventListener(`click`, () => {
-      renderCard(window.card.create(аnnouncements[j]));
+      window.card.remove();
+      renderCard(window.card.create(announcement));
+      pinItem.classList.add(`map__pin--active`);
     });
+
     fragment.appendChild(pinItem);
-  }
+  });
+
   return fragment;
 };
 
@@ -69,20 +72,11 @@ const removePins = () => {
   });
 };
 
-// удаляем активный пин, если он есть
-const removeActivePin = () => {
-  let activePin = document.querySelector(`.map__pin--active`);
-  if (activePin) {
-    activePin.classList.remove(`map__pin--active`);
-  }
-};
-
 window.map = {
   element: map,
   mapFiltersForm: mapFiltersForm,
   disable: disableMap,
   enable: enableMap,
   addPins: addPins,
-  removePins: removePins,
-  removeActivePin: removeActivePin
+  removePins: removePins
 };

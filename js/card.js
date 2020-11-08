@@ -89,7 +89,7 @@ const createPhotosBlock = (popup, announcement) => {
 const removeCard = () => {
   const mapCardElement = window.map.element.querySelector(`.map__card`);
   if (mapCardElement) {
-    window.map.removeActivePin();
+    window.pin.removeActivePin();
     mapCardElement.remove();
     document.removeEventListener(`keydown`, documentEscapePressHandler);
   }

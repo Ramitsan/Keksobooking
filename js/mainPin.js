@@ -1,7 +1,7 @@
 'use strict';
 
 const MAIN_PIN_WIDTH = 65;
-const MAIN_PIN_HEIGHT_ACTIVE = 85; // высота с учетом "хвостика" 65 + 18;
+const MAIN_PIN_HEIGHT_ACTIVE = 83; // высота с учетом "хвостика" 65 + 18;
 const MAP_MIN_Y = 130;
 const MAP_MAX_Y = 630;
 const MAIN_PIN_MIN_Y = MAP_MIN_Y - MAIN_PIN_HEIGHT_ACTIVE;
@@ -69,7 +69,7 @@ mapPinMainElement.addEventListener(`mousedown`, (evt) => {
       mapPinMainElement.style.top = (mapPinMainElement.offsetTop - shift.y) + `px`;
     }
 
-    window.form.setAddressPin(getAddressPin());
+    window.form.setAddress(getAddressPin());
   };
 
   const onMouseUp = (upEvt) => {
