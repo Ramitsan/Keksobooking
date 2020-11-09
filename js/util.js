@@ -1,33 +1,29 @@
 'use strict';
 
-(function () {
+const ESC_KEYCODE = 27;
+const ENTER_KEYCODE = 13;
 
-  var ESC_KEYCODE = 27;
-  var ENTER_KEYCODE = 13;
+window.util = {
+  ESC_KEYCODE: ESC_KEYCODE,
+  ENTER_KEYCODE: ENTER_KEYCODE,
 
-  window.util = {
-    ESC_KEYCODE: ESC_KEYCODE,
-    ENTER_KEYCODE: ENTER_KEYCODE,
+  isEscPress: (evt) => {
+    return evt.keyCode === window.util.ESC_KEYCODE;
+  },
 
-    isEscPress: function (evt) {
-      return evt.keyCode === window.util.ESC_KEYCODE;
-    },
+  isEnterPress: (evt) => {
+    return evt.keyCode === window.util.ENTER_KEYCODE;
+  },
 
-    isEnterPress: function (evt) {
-      return evt.keyCode === window.util.ENTER_KEYCODE;
-    },
+  disableElements: (items) => {
+    items.forEach((item) => {
+      item.disabled = true;
+    });
+  },
 
-    disableElements: function (items) {
-      items.forEach(function (item) {
-        item.disabled = true;
-      });
-    },
-
-    enableElements: function (items) {
-      items.forEach(function (item) {
-        item.disabled = false;
-      });
-    }
-  };
-
-})();
+  enableElements: (items) => {
+    items.forEach((item) => {
+      item.disabled = false;
+    });
+  }
+};
