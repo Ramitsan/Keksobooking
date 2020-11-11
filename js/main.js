@@ -14,7 +14,7 @@ const activatePage = () => {
 
   window.backend.load((data) => {
     let correctData = data.filter((item) => {
-      return 'offer' in item;
+      return `offer` in item;
     });
     window.filters.setFilteredPins(correctData, addFilteredPins);
   }, errorHandler);
@@ -47,7 +47,7 @@ window.form.element.addEventListener(`submit`, (evt) => {
 });
 
 // обработчик кнопки очистки формы
-window.form.resetElement.addEventListener('click', () => {
+window.form.resetElement.addEventListener(`click`, () => {
   deactivatePage();
 });
 

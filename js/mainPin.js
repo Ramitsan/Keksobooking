@@ -43,7 +43,7 @@ mapPinMainElement.addEventListener(`mousedown`, (evt) => {
     y: evt.clientY
   };
 
-  const onMouseMove = (moveEvt) => {
+  const mouseMoveHandler = (moveEvt) => {
     moveEvt.preventDefault();
 
     let shift = {
@@ -72,15 +72,15 @@ mapPinMainElement.addEventListener(`mousedown`, (evt) => {
     window.form.setAddress(getAddressPin());
   };
 
-  const onMouseUp = (upEvt) => {
+  const mouseUpHandler = (upEvt) => {
     upEvt.preventDefault();
 
-    document.removeEventListener(`mousemove`, onMouseMove);
-    document.removeEventListener(`mouseup`, onMouseUp);
+    document.removeEventListener(`mousemove`, mouseMoveHandler);
+    document.removeEventListener(`mouseup`, mouseUpHandler);
   };
 
-  document.addEventListener(`mousemove`, onMouseMove);
-  document.addEventListener(`mouseup`, onMouseUp);
+  document.addEventListener(`mousemove`, mouseMoveHandler);
+  document.addEventListener(`mouseup`, mouseUpHandler);
 });
 
 const resetMainPin = () => {

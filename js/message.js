@@ -1,13 +1,14 @@
 'use strict';
 
+const errorBackgroundColor = `rgba(255, 86, 53, 0.7)`;
 const successPopup = document.querySelector(`#success`).content.querySelector(`.success`);
 const errorPopup = document.querySelector(`#error`).content.querySelector(`.error`);
+const mainElement = document.querySelector(`main`);
 
-
+// обработчик успешной загрузки
 const success = successPopup.cloneNode(true);
 const showSuccess = () => {
-  // document.body.insertAdjacentElement(`afterbegin`, success);
-  document.querySelector('main').appendChild(success);
+  mainElement.appendChild(success);
 };
 
 // закрытие окна успешной загрузки по ESC
@@ -26,10 +27,9 @@ document.addEventListener(`click`, (e) => {
 
 // обработчик ошибки
 const error = errorPopup.cloneNode(true);
-
 const showError = (textMessage) => {
-  error.style.backgroundColor = `rgba(255, 86, 53, 0.7)`;
-  document.querySelector(`main`).appendChild(error);
+  error.style.backgroundColor = errorBackgroundColor;
+  mainElement.appendChild(error);
 
   error.querySelector(`.error__message`).textContent = textMessage;
 };

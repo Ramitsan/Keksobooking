@@ -29,6 +29,14 @@ const createCard = (announcement) => {
   createFeaturesBlock(popup, announcement);
   createPhotosBlock(popup, announcement);
 
+  // проверка на наличие данных, если данных нет, блок скрывается
+  let popupItems = popup.querySelectorAll(`:not(img)`);
+  popupItems.forEach(function (item) {
+    if (!item.innerHTML) {
+      item.remove();
+    }
+  });
+
   popup.querySelector(`.popup__close`).addEventListener(`click`, () => {
     removeCard();
   });
@@ -77,9 +85,6 @@ const createPhotosBlock = (popup, announcement) => {
       copyPhotosItem.style.height = `40px`;
       copyPhotosItem.src = item;
 
-      copyPhotosItem.addEventListener(`click`, () => {
-        window.bigPicture.open(copyPhotosItem);
-      });
       photosList.append(copyPhotosItem);
     });
   }
@@ -89,7 +94,7 @@ const createPhotosBlock = (popup, announcement) => {
 const removeCard = () => {
   const mapCardElement = window.map.element.querySelector(`.map__card`);
   if (mapCardElement) {
-    window.pin.removeActivePin();
+    window.pin.removeActive();
     mapCardElement.remove();
     document.removeEventListener(`keydown`, documentEscapePressHandler);
   }

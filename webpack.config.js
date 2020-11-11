@@ -7,7 +7,6 @@ module.exports = {
     "./js/chooserImage.js",
     "./js/form.js",
     "./js/card.js",
-    "./js/bigPicture.js",
     "./js/pin.js",
     "./js/debounce.js",
     "./js/filters.js",

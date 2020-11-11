@@ -1,9 +1,45 @@
 'use strict';
 
+// минимальная цена в зависимости от типа жилья
+const MinimumPrice = {
+  bungalow: `0`,
+  house: `5000`,
+  flat: `1000`,
+  palace: `10000`
+};
+// Соответствие количества комнат количеству гостей
+const roomsToGuests = {
+  1: [`1`],
+  2: [`1`, `2`],
+  3: [`1`, `2`, `3`],
+  100: [`0`]
+};
+
+// Сообщение при несоответствии количества комнат количеству гостей
+const mismatchMessage = {
+  1: `1 комната — для 1 гостя`,
+  2: `2 комнаты — для 1 или 2 гостей`,
+  3: `3 комнаты — для 1 или 2 или 3 гостей`,
+  100: `100 комнат — не для гостей`
+};
+
+const MIN_TITLE_LENGTH = 30;
+const MAX_TITLE_LENGTH = 100;
+
 const adFormElement = document.querySelector(`.ad-form`);
 const adFormFieldsetElements = adFormElement.querySelectorAll(`.ad-form__element`);
 const addressInputElement = adFormElement.querySelector(`#address`);
-const formResetButtonElement = adFormElement.querySelector('.ad-form__reset');
+const formResetButtonElement = adFormElement.querySelector(`.ad-form__reset`);
+const roomsQuantityElement = adFormElement.querySelector(`#room_number`);
+const guestsQuantityElement = adFormElement.querySelector(`#capacity`);
+const adFormSubmitButton = adFormElement.querySelector(`.ad-form__submit`);
+const titleInputElement = adFormElement.querySelector(`#title`);
+const typeInputElement = adFormElement.querySelector(`#type`);
+const priceInputElement = adFormElement.querySelector(`#price`);
+const adFormTimeElement = adFormElement.querySelector(`.ad-form__element--time`);
+const timeInInputElement = adFormElement.querySelector(`#timein`);
+const timeOutInputElement = adFormElement.querySelector(`#timeout`);
+
 
 const enableFormFieldsets = () => {
   window.util.enableElements(adFormFieldsetElements);
@@ -30,35 +66,7 @@ const setAddressPin = (coordinates) => {
   addressInputElement.value = `${coordinates.x}, ${coordinates.y}`;
 };
 
-// установка соответствия количества комнат и количества гостей
-const roomsQuantityElement = adFormElement.querySelector(`#room_number`);
-const guestsQuantityElement = adFormElement.querySelector(`#capacity`);
-const adFormSubmitButton = adFormElement.querySelector(`.ad-form__submit`);
-
-const selectRoomsHandler = () => {
-  const roomsValue = roomsQuantityElement.value;
-  const guestValue = guestsQuantityElement.value;
-
-  if (roomsValue === `100` && guestValue !== `0`) {
-    roomsQuantityElement.setCustomValidity(`100 комнат — не для гостей`);
-  } else if (roomsValue === `1` && guestValue !== `1`) {
-    roomsQuantityElement.setCustomValidity(`1 комната — для 1 гостя`);
-  } else if (roomsValue === `2` && (guestValue !== `1` || guestValue !== `2`)) {
-    roomsQuantityElement.setCustomValidity(`2 комнаты — для 1 или 2 гостей`);
-  } else if (roomsValue === `3` && guestValue === `0`) {
-    roomsQuantityElement.setCustomValidity(`3 комнаты — для 1 или 2 или 3 гостей`);
-  } else {
-    roomsQuantityElement.setCustomValidity(``);
-  }
-};
-
-adFormSubmitButton.addEventListener(`click`, selectRoomsHandler);
-
-// проверка заголовка объявления
-const MIN_TITLE_LENGTH = 30;
-const MAX_TITLE_LENGTH = 100;
-const titleInputElement = adFormElement.querySelector(`#title`);
-
+// Проверяем заголовок объявления
 const checkTitleHandler = () => {
   const titleValueLength = titleInputElement.value.length;
   if (titleValueLength < MIN_TITLE_LENGTH) {
@@ -70,46 +78,33 @@ const checkTitleHandler = () => {
   }
 };
 
-titleInputElement.addEventListener(`input`, checkTitleHandler);
-
-// устанавливаем соответствие типа жилья и минимальной цены за ночь
-const typeInputElement = adFormElement.querySelector(`#type`);
-const priceInputElement = adFormElement.querySelector(`#price`);
-
+// Устанавливаем соответствие типа жилья и минимальной цены за ночь
 const selectTypeAndPriceHandler = () => {
-  switch (typeInputElement.value) {
-    case `bungalow`:
-      priceInputElement.min = `0`;
-      priceInputElement.placeholder = `0`;
-      break;
-    case `flat`:
-      priceInputElement.min = `1000`;
-      priceInputElement.placeholder = `1 000`;
-      break;
-    case `house`:
-      priceInputElement.min = `5000`;
-      priceInputElement.placeholder = `5 000`;
-      break;
-    case `palace`:
-      priceInputElement.min = `10000`;
-      priceInputElement.placeholder = `10 000`;
-      break;
-  }
+  const minPrice = MinimumPrice[typeInputElement.value];
+  priceInputElement.placeholder = minPrice;
+  priceInputElement.min = minPrice;
 };
 
-typeInputElement.addEventListener(`change`, selectTypeAndPriceHandler);
-
-// устанавливаем соответствие времени заезда и выезда
-const adFormTimeElement = adFormElement.querySelector(`.ad-form__element--time`);
-const timeInInputElement = adFormElement.querySelector(`#timein`);
-const timeOutInputElement = adFormElement.querySelector(`#timeout`);
-
+// Устанавливаем соответствие времени заезда и выезда
 const selectTimeHandler = (evt) => {
   timeInInputElement.value = evt.target.value;
   timeOutInputElement.value = evt.target.value;
 };
 
-adFormTimeElement.addEventListener('change', selectTimeHandler);
+// Сопоставляем количество комнат с количеством гостей
+const matchRoomsAndGuests = () => {
+  const mismatch = mismatchMessage[roomsQuantityElement.value];
+  return roomsToGuests[roomsQuantityElement.value].includes(guestsQuantityElement.value) ? `` : mismatch;
+};
+const selectRoomsHandler = () => {
+  guestsQuantityElement.setCustomValidity(matchRoomsAndGuests());
+};
+
+
+titleInputElement.addEventListener(`input`, checkTitleHandler);
+typeInputElement.addEventListener(`change`, selectTypeAndPriceHandler);
+adFormTimeElement.addEventListener(`change`, selectTimeHandler);
+adFormSubmitButton.addEventListener(`click`, selectRoomsHandler);
 
 window.form = {
   element: adFormElement,

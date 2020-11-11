@@ -1,5 +1,20 @@
 'use strict';
 
+const PricesRatio = {
+  LOW: {
+    INPUT_VALUE: `low`,
+    MAX_PRICE: 10000
+  },
+  MIDDLE: {
+    INPUT_VALUE: `middle`,
+    MIN_PRICE: 10000,
+    MAX_PRICE: 50000
+  },
+  HIGH: {
+    INPUT_VALUE: `high`,
+    MIN_PRICE: 50000
+  }
+};
 const PIN_MAX_COUNT = 5;
 const defaultOptionValue = `any`;
 
@@ -20,9 +35,10 @@ const filterByHouseType = (аnnouncement) => {
 
 const filterByHousePrice = (аnnouncement) => {
   return (filterHousePriceElement.value === defaultOptionValue ||
-    (аnnouncement.offer.price < 10000 && filterHousePriceElement.value === `low`) ||
-    (аnnouncement.offer.price > 50000 && filterHousePriceElement.value === `high`) ||
-    (аnnouncement.offer.price >= 10000 && аnnouncement.offer.price <= 50000 && filterHousePriceElement.value === `middle`));
+    (аnnouncement.offer.price < PricesRatio.LOW.MAX_PRICE && filterHousePriceElement.value === PricesRatio.LOW.INPUT_VALUE) ||
+    (аnnouncement.offer.price > PricesRatio.HIGH.MIN_PRICE && filterHousePriceElement.value === PricesRatio.HIGH.INPUT_VALUE) ||
+    (аnnouncement.offer.price >= PricesRatio.MIDDLE.MIN_PRICE && аnnouncement.offer.price <= PricesRatio.MIDDLE.MAX_PRICE &&
+      filterHousePriceElement.value === PricesRatio.MIDDLE.INPUT_VALUE));
 };
 
 const filterByNumberOfRooms = (аnnouncement) => {
@@ -41,13 +57,13 @@ const filterByFeatures = (features) => {
 };
 
 // фильтрация объявлений по всем фильтрам
-const filterAnnouncements = (аnnouncements) => {
-  return filterByPinsCount(аnnouncements.filter((аnnouncement) => {
-    return filterByHouseType(аnnouncement) &&
-      filterByHousePrice(аnnouncement) &&
-      filterByNumberOfRooms(аnnouncement) &&
-      filterByNumberOfGuests(аnnouncement) &&
-      filterByFeatures(аnnouncement.offer.features);
+const filterAnnouncements = (announcements) => {
+  return filterByPinsCount(announcements.filter((announcement) => {
+    return filterByHouseType(announcement) &&
+      filterByHousePrice(announcement) &&
+      filterByNumberOfRooms(announcement) &&
+      filterByNumberOfGuests(announcement) &&
+      filterByFeatures(announcement.offer.features);
   }));
 };
 
@@ -56,7 +72,7 @@ const setFilteredPins = (data, callback) => {
   let renderingWidthDebounce = window.debounce(() => {
     callback(filterAnnouncements(data));
   });
-  mapFiltersForm.addEventListener('change', () => {
+  mapFiltersForm.addEventListener(`change`, () => {
     renderingWidthDebounce();
   });
   callback(filterAnnouncements(data));

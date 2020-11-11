@@ -29,5 +29,5 @@ const removeActivePin = () => {
 
 window.pin = {
   render: renderPin,
-  removeActivePin: removeActivePin
+  removeActive: removeActivePin
 };
