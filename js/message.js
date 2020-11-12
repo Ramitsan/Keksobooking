@@ -5,25 +5,38 @@ const successPopup = document.querySelector(`#success`).content.querySelector(`.
 const errorPopup = document.querySelector(`#error`).content.querySelector(`.error`);
 const mainElement = document.querySelector(`main`);
 
+
+// закрытие окна по Esc
+const clickEscHandler = (message) => {
+  document.addEventListener(`keydown`, (e) => {
+    if (window.util.isEscPress(e)) {
+      message.remove();
+    }
+  })
+};
+
+
+// закрытие окна по клику на произвольной области
+const clickEmptySpaceHandler = (message) => {
+  document.addEventListener(`click`, (e) => {
+    if (e.target === message) {
+      message.remove();
+    }
+  });
+}
+
 // обработчик успешной загрузки
 const success = successPopup.cloneNode(true);
 const showSuccess = () => {
   mainElement.appendChild(success);
+
+  // закрытие окна успешной загрузки по ESC
+  closeEscHandler(success);
+
+  // закрытие окна успешной загрузки по клику на произвольной области
+  clickEmptySpaceHandler(success);
 };
 
-// закрытие окна успешной загрузки по ESC
-document.addEventListener(`keydown`, (e) => {
-  if (window.util.isEscPress(e)) {
-    success.remove();
-  }
-});
-
-// по клику на произвольной области
-document.addEventListener(`click`, (e) => {
-  if (e.target === success) {
-    success.remove();
-  }
-});
 
 // обработчик ошибки
 const error = errorPopup.cloneNode(true);
@@ -32,26 +45,18 @@ const showError = (textMessage) => {
   mainElement.appendChild(error);
 
   error.querySelector(`.error__message`).textContent = textMessage;
+
+  // закрытие окна ошибки по клику
+  error.querySelector(`.error__button`).addEventListener(`click`, () => {
+    error.remove();
+  });
+
+  // закрытие окна ошибки по Esc
+  closeEscHandler(error);
+
+  // закрытие окна ошибки по клику на произвольной области
+  clickEmptySpaceHandler(error);
 };
-
-// закрытие окна об ошибке по клику
-error.querySelector(`.error__button`).addEventListener(`click`, () => {
-  error.remove();
-});
-
-// по ESC
-document.addEventListener(`keydown`, (e) => {
-  if (window.util.isEscPress(e)) {
-    error.remove();
-  }
-});
-
-// по клику на произвольной области
-document.addEventListener(`click`, (e) => {
-  if (e.target === error) {
-    error.remove();
-  }
-});
 
 window.message = {
   showSuccess: showSuccess,
