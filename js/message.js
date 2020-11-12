@@ -12,7 +12,7 @@ const clickEscHandler = (message) => {
     if (window.util.isEscPress(e)) {
       message.remove();
     }
-  })
+  });
 };
 
 
@@ -23,7 +23,7 @@ const clickEmptySpaceHandler = (message) => {
       message.remove();
     }
   });
-}
+};
 
 // обработчик успешной загрузки
 const success = successPopup.cloneNode(true);
@@ -31,7 +31,7 @@ const showSuccess = () => {
   mainElement.appendChild(success);
 
   // закрытие окна успешной загрузки по ESC
-  closeEscHandler(success);
+  clickEscHandler(success);
 
   // закрытие окна успешной загрузки по клику на произвольной области
   clickEmptySpaceHandler(success);
@@ -52,7 +52,7 @@ const showError = (textMessage) => {
   });
 
   // закрытие окна ошибки по Esc
-  closeEscHandler(error);
+  clickEscHandler(error);
 
   // закрытие окна ошибки по клику на произвольной области
   clickEmptySpaceHandler(error);
