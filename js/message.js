@@ -1,5 +1,6 @@
 'use strict';
 
+const errorBackgroundColor = `rgba(255, 86, 53, 0.7)`;
 const successPopup = document.querySelector(`#success`).content.querySelector(`.success`);
 const errorPopup = document.querySelector(`#error`).content.querySelector(`.error`);
 
@@ -27,7 +28,7 @@ document.addEventListener(`click`, (e) => {
 const error = errorPopup.cloneNode(true);
 
 const showError = (textMessage) => {
-  error.style.backgroundColor = `rgba(255, 86, 53, 0.7)`;
+  error.style.backgroundColor = errorBackgroundColor;
   document.querySelector(`main`).appendChild(error);
 
   error.querySelector(`.error__message`).textContent = textMessage;
