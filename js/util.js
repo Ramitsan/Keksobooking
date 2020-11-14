@@ -4,8 +4,8 @@ const ESC_KEYCODE = 27;
 const ENTER_KEYCODE = 13;
 
 window.util = {
-  ESC_KEYCODE: ESC_KEYCODE,
-  ENTER_KEYCODE: ENTER_KEYCODE,
+  ESC_KEYCODE,
+  ENTER_KEYCODE,
 
   isEscPress: (evt) => {
     return evt.keyCode === window.util.ESC_KEYCODE;

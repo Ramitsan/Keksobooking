@@ -13,7 +13,7 @@ formPhotosPreview.style.display = `flex`;
 formPhotosPreview.insertAdjacentHTML(`afterbegin`, `<img src="img/muffin-grey.svg" alt="Фотография жилья" width="50" height="50" style="margin: 10px;">`);
 const photoElement = formPhotosPreview.firstChild;
 
-// обработчик загрузки фотографий
+// функция загрузки фотографий
 const addImagePreview = (input, preview) => {
   input.addEventListener(`change`, () => {
     const file = input.files[0];

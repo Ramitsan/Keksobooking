@@ -32,7 +32,7 @@ const createCard = (announcement) => {
 
   // проверка на наличие данных, если данных нет, блок скрывается
   const popupItems = popup.querySelectorAll(`:scope > *`);
-  popupItems.forEach(function (item) {
+  popupItems.forEach((item) => {
     if (!item.innerHTML || item.textContent === NO_VALUE || item.src === NO_VALUE) {
       item.remove();
     }
@@ -82,7 +82,6 @@ const createPhotosBlock = (popup, announcement) => {
 
     photosList.append(copyPhotosItem);
   });
-
 };
 
 // добавляем закрытие карточки по клику на "крестик"

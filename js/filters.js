@@ -24,11 +24,6 @@ const filterHousePriceElement = mapFiltersForm.querySelector(`#housing-price`);
 const filterHouseRoomsElement = mapFiltersForm.querySelector(`#housing-rooms`);
 const filterHouseGuestsElement = mapFiltersForm.querySelector(`#housing-guests`);
 
-// фильтр количества отрисованных пинов на карте
-const filterByPinsCount = (arr) => {
-  return arr.slice(0, PIN_MAX_COUNT);
-};
-
 const filterByHouseType = (аnnouncement) => {
   return (filterHouseTypeElement.value === defaultOptionValue || аnnouncement.offer.type === filterHouseTypeElement.value);
 };
@@ -57,25 +52,35 @@ const filterByFeatures = (features) => {
 };
 
 // фильтрация объявлений по всем фильтрам
-const filterAnnouncements = (announcements) => {
-  return filterByPinsCount(announcements.filter((announcement) => {
-    return filterByHouseType(announcement) &&
-      filterByHousePrice(announcement) &&
-      filterByNumberOfRooms(announcement) &&
-      filterByNumberOfGuests(announcement) &&
-      filterByFeatures(announcement.offer.features);
-  }));
+const filterAnnouncements = (announcement) => {
+  return filterByHouseType(announcement) &&
+    filterByHousePrice(announcement) &&
+    filterByNumberOfRooms(announcement) &&
+    filterByNumberOfGuests(announcement) &&
+    filterByFeatures(announcement.offer.features);
+};
+
+// добавление в массив не более 5 объявлений в соответствии с фильтрами
+const getDataSorted = (data) => {
+  const newArr = [];
+  for (let i = 0; i < data.length && newArr.length < PIN_MAX_COUNT; i++) {
+    let item = data[i];
+    if (filterAnnouncements(item)) {
+      newArr.push(item);
+    }
+  }
+  return newArr;
 };
 
 // заполнение карты пинами в соответсвии с фильтрами
 const setFilteredPins = (data, callback) => {
   let renderingWidthDebounce = window.debounce(() => {
-    callback(filterAnnouncements(data));
+    callback(getDataSorted(data));
   });
   mapFiltersForm.addEventListener(`change`, () => {
     renderingWidthDebounce();
   });
-  callback(filterAnnouncements(data));
+  callback(getDataSorted(data));
 };
 
 // функция очистки фильтров
@@ -84,6 +89,6 @@ const clearFiltersFormHandler = () => {
 };
 
 window.filters = {
-  setFilteredPins: setFilteredPins,
+  setFilteredPins,
   clear: clearFiltersFormHandler
 };

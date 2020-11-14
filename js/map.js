@@ -74,9 +74,9 @@ const removePins = () => {
 
 window.map = {
   element: map,
-  mapFiltersForm: mapFiltersForm,
+  mapFiltersForm,
   disable: disableMap,
   enable: enableMap,
-  addPins: addPins,
-  removePins: removePins
+  addPins,
+  removePins
 };
