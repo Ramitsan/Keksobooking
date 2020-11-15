@@ -33,7 +33,7 @@ const createCard = (announcement) => {
   // проверка на наличие данных, если данных нет, блок скрывается
   const popupItems = popup.querySelectorAll(`:scope > *`);
   popupItems.forEach((item) => {
-    if (!item.innerHTML || item.textContent === NO_VALUE || item.src === NO_VALUE) {
+    if (item.textContent === NO_VALUE || item.src === NO_VALUE) {
       item.remove();
     }
   });
@@ -50,38 +50,45 @@ const createCard = (announcement) => {
 
 // Добавляем блок с удобствами
 const createFeaturesBlock = (popup, announcement) => {
-  const featuresList = popup.querySelector(`.popup__features`);
-  featuresList.style.display = `block`;
-  const features = announcement.offer.features;
-  featuresList.innerHTML = ``;
+  if (!announcement.offer.features.length) {
+    popup.querySelector(`.popup__features`).style.display = `none`;
+  } else {
+    const featuresList = popup.querySelector(`.popup__features`);
+    featuresList.style.display = `block`;
+    const features = announcement.offer.features;
+    featuresList.innerHTML = ``;
 
-  features.forEach((value) => {
-    const copyFeaturesItem = document.createElement(`li`);
+    features.forEach((value) => {
+      const copyFeaturesItem = document.createElement(`li`);
 
-    copyFeaturesItem.classList.add(`popup__feature`);
-    copyFeaturesItem.classList.add(`popup__feature--${value}`);
-    featuresList.append(copyFeaturesItem);
-  });
-
+      copyFeaturesItem.classList.add(`popup__feature`);
+      copyFeaturesItem.classList.add(`popup__feature--${value}`);
+      featuresList.append(copyFeaturesItem);
+    });
+  }
 };
 
 //  Добавляем блок с фотографиями
 const createPhotosBlock = (popup, announcement) => {
-  const photosList = popup.querySelector(`.popup__photos`);
-  photosList.style.display = `block`;
-  const photos = announcement.offer.photos;
-  photosList.innerHTML = ``;
+  if (!announcement.offer.photos.length) {
+    popup.querySelector(`.popup__photos`).style.display = `none`;
+  } else {
+    const photosList = popup.querySelector(`.popup__photos`);
+    photosList.style.display = `block`;
+    const photos = announcement.offer.photos;
+    photosList.innerHTML = ``;
 
-  photos.forEach((item) => {
-    const copyPhotosItem = document.createElement(`img`);
+    photos.forEach((item) => {
+      const copyPhotosItem = document.createElement(`img`);
 
-    copyPhotosItem.classList.add(`popup__photo`);
-    copyPhotosItem.style.width = `45px`;
-    copyPhotosItem.style.height = `40px`;
-    copyPhotosItem.src = item;
+      copyPhotosItem.classList.add(`popup__photo`);
+      copyPhotosItem.style.width = `45px`;
+      copyPhotosItem.style.height = `40px`;
+      copyPhotosItem.src = item;
 
-    photosList.append(copyPhotosItem);
-  });
+      photosList.append(copyPhotosItem);
+    });
+  }
 };
 
 // добавляем закрытие карточки по клику на "крестик"
