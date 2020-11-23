@@ -1,4 +1,4 @@
-# Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
+# Личный проект «Кексобукинг»
 
 * Студент: [Ирина Рамицан](https://up.htmlacademy.ru/javascript/21/user/877447).
 * Наставник: [Сергей Буртылёв](https://htmlacademy.ru/profile/id3341).
@@ -19,7 +19,8 @@
 * работа с различными структурами данных,
 * загрузка изображений
           и др.
-GitHub Pages: https://ramitsan.github.io/877447-keksobooking-21/
+
+* GitHub Pages: https://ramitsan.github.io/877447-keksobooking-21/
 
 ---
 
