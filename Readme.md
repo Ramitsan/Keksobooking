@@ -1,7 +1,6 @@
 # Личный проект «Кексобукинг»
 
-![Keksobooking](https://user-images.githubusercontent.com/45296707/134822202-8c1b796f-00af-487e-b308-f381ad5d5151.jpg)
-
+![Keksobooking](https://user-images.githubusercontent.com/45296707/134822234-0df6dfc5-2206-40ca-9303-7003d7e26c52.jpg)
 
 * Студент: [Ирина Рамицан](https://up.htmlacademy.ru/javascript/21/user/877447).
 * Наставник: [Сергей Буртылёв](https://htmlacademy.ru/profile/id3341).
