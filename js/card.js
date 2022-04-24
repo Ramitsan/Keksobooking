@@ -50,7 +50,7 @@ const createCard = (announcement) => {
 
 // Добавляем блок с удобствами
 const createFeaturesBlock = (popup, announcement) => {
-  if (!announcement.offer.features.length) {
+  if (!announcement.offer.features) {
     popup.querySelector(`.popup__features`).style.display = `none`;
   } else {
     const featuresList = popup.querySelector(`.popup__features`);
@@ -70,7 +70,7 @@ const createFeaturesBlock = (popup, announcement) => {
 
 //  Добавляем блок с фотографиями
 const createPhotosBlock = (popup, announcement) => {
-  if (!announcement.offer.photos.length) {
+  if (!announcement.offer.photos) {
     popup.querySelector(`.popup__photos`).style.display = `none`;
   } else {
     const photosList = popup.querySelector(`.popup__photos`);

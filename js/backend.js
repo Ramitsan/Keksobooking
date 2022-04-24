@@ -1,16 +1,16 @@
 'use strict';
 
-const URL_SAVE = `https://21.javascript.pages.academy/keksobooking`;
-const URL_LOAD = `https://21.javascript.pages.academy/keksobooking/data`;
+const URL_SAVE = `https://23.javascript.pages.academy/keksobooking`;
+const URL_LOAD = `../data.json`;
+
 const REQUEST_TIMEOUT = 3000; // 3s
 const REQUEST_STATUS_OK = 200;
 const REQUEST_STATUS_BAD = 400;
 const REQUEST_STATUS_NOT_FOUND = 404;
 const REQUEST_STATUS_SERVER_ERROR = 500;
 
-
 const serverRequest = (URL, method, data, onLoad, onError) => {
-  let xhr = new XMLHttpRequest();
+  const xhr = new XMLHttpRequest();
   xhr.responseType = `json`;
   xhr.timeout = REQUEST_TIMEOUT;
   xhr.open(method, URL);
@@ -37,13 +37,10 @@ const serverRequest = (URL, method, data, onLoad, onError) => {
   xhr.addEventListener(`error`, () => {
     onError(`Произошла ошибка соединения`);
   });
-
   xhr.addEventListener(`timeout`, () => {
     onError(`Запрос не успел выполниться за ${xhr.timeout} мс`);
   });
-
   xhr.send(data);
-
 };
 
 window.backend = {
