@@ -1,7 +1,7 @@
 'use strict';
 
 const URL_SAVE = `https://23.javascript.pages.academy/keksobooking`;
-const URL_LOAD = `../data.json`;
+const URL_LOAD = `https://ramitsan.github.io/Keksobooking/data.json`;
 
 const REQUEST_TIMEOUT = 3000; // 3s
 const REQUEST_STATUS_OK = 200;
